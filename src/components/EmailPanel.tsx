@@ -165,11 +165,11 @@ export function EmailPanel() {
           <div className="space-y-1 border-b p-4">
             <div className="flex items-center gap-2">
               <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Od:</span>
-              <span className="text-xs">{data.od.ime} &lt;{data.od.email}&gt;</span>
+              <span className="text-xs">{data.od.email}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Za:</span>
-              <span className="text-xs">{data.za.ime} &lt;{data.za.email}&gt;</span>
+              <span className="text-xs">{data.za.email}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Zadeva:</span>
