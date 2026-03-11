@@ -1,0 +1,1 @@
+CREATE POLICY "Allow public read access on compliance" ON public.compliance FOR SELECT TO anon, authenticated USING (true);
