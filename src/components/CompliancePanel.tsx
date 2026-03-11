@@ -31,7 +31,7 @@ function SectionHeader({ icon: Icon, title }: { icon: React.ElementType; title: 
   );
 }
 
-export function CompliancePanel() {
+export function CompliancePanel({ currentEmail }: { currentEmail?: { za: { ime: string; email: string }; zadeva: string } }) {
   const { data, loading } = useCompliance();
 
   if (loading) {
