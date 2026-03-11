@@ -86,6 +86,7 @@ export type Database = {
           za_email: string | null
           za_ime: string | null
           zadeva: string | null
+          zakljucek: string | null
         }
         Insert: {
           created_at?: string
@@ -101,6 +102,7 @@ export type Database = {
           za_email?: string | null
           za_ime?: string | null
           zadeva?: string | null
+          zakljucek?: string | null
         }
         Update: {
           created_at?: string
@@ -116,6 +118,7 @@ export type Database = {
           za_email?: string | null
           za_ime?: string | null
           zadeva?: string | null
+          zakljucek?: string | null
         }
         Relationships: []
       }
