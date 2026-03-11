@@ -57,7 +57,7 @@ export function CompliancePanel() {
         <Card className="border p-4 shadow-sm">
           <SectionHeader icon={Briefcase} title="Povzetek primera" />
           <p className="text-sm leading-relaxed">{data.povzetek_primera}</p>
-          {data.povzetek.length > 0 && (
+          {(data.povzetek ?? []).length > 0 && (
             <div className="mt-3 rounded-lg border bg-muted/30 p-3">
               <h5 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Povzetek situacije
