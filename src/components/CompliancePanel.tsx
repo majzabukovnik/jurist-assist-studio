@@ -133,7 +133,7 @@ export function CompliancePanel() {
             </div>
           </Card>
           <Card className="group border p-4 shadow-sm transition-all hover:shadow-md cursor-default">
-            <SectionHeader icon={Shield} title="AML/KYC tveganje" />
+            <SectionHeader icon={Shield} title="AML/KYC tveganje" colorClass={data.aml_kyc_level === "red" ? "text-status-red" : data.aml_kyc_level === "yellow" ? "text-status-yellow" : "text-status-green"} />
             <div className="flex items-center gap-2">
               <span className={`h-3 w-3 rounded-full ${data.aml_kyc_level === "red" ? "bg-status-red" : data.aml_kyc_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
               <span className={`text-sm ${data.aml_kyc_level === "red" ? "text-status-red" : data.aml_kyc_level === "yellow" ? "text-status-yellow" : "text-status-green"}`}>
