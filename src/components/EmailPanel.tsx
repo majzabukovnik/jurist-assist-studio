@@ -99,6 +99,7 @@ export function EmailPanel() {
             <Separator />
 
             {/* Suggested legal team */}
+            {data.pravna_ekipa.length > 0 && (
             <div>
               <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Predlagana pravna ekipa
@@ -118,6 +119,7 @@ export function EmailPanel() {
                 )}
               </div>
             </div>
+            )}
 
             <Separator />
 
