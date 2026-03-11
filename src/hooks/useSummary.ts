@@ -13,6 +13,7 @@ const emptyDraft: EmailDraft = {
   vprasanja: [],
   pravna_ekipa: [],
   naslednji_koraki: [],
+  zakljucek: "",
   podpis: "",
   generirano: new Date().toISOString(),
 };
@@ -32,6 +33,7 @@ export function useSummary() {
     vprasanja: row.vprasanja ?? [],
     pravna_ekipa: [],
     naslednji_koraki: row.naslednji_koraki ?? [],
+    zakljucek: row.zakljucek ?? "",
     podpis: row.od_ime ?? "",
     generirano: row.created_at,
   });

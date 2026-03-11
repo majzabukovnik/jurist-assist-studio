@@ -132,15 +132,15 @@ export function EmailPanel() {
               </ul>
             </div>
 
-            <p className="mt-4">V kolikor imate vmes še kakšno vprašanje ali dodatne informacije, nam jih lahko kadarkoli posredujete.
+            {data.zakljucek && (
+              <p className="mt-4 whitespace-pre-line">{data.zakljucek}</p>
+            )}
 
-
-S spoštovanjem,
-Odvetniška pisarna Novak d.o.o.
-
-              <br />
-              <span className="font-medium">{data.podpis}</span>
-            </p>
+            {data.podpis && (
+              <p className="mt-4">
+                <span className="font-medium">{data.podpis}</span>
+              </p>
+            )}
           </div>
         </Card>
       </div>
