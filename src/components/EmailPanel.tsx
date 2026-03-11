@@ -47,6 +47,7 @@ function AutoResizeTextarea({
 
 export function EmailPanel() {
   const { data, loading } = useSummary();
+  const [sending, setSending] = useState(false);
 
   const [pozdrav, setPozdrav] = useState("");
   const [uvod, setUvod] = useState("");
