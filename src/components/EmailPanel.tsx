@@ -28,15 +28,15 @@ export function EmailPanel() {
           {/* Email header fields */}
           <div className="space-y-1.4 border-b p-5">
             <div className="flex items-center gap-3">
-              <span className="w-16 text-xs font-medium text-muted-foreground uppercase tracking-wider">Od:</span>
+              <span className="w-10 text-xs font-medium text-muted-foreground uppercase tracking-wider">Od:</span>
               <span className="text-sm">Odvetniška pisarna Novak d.o.o. &lt;info@novak-law.si&gt;</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="w-16 text-xs font-medium text-muted-foreground uppercase tracking-wider">Za:</span>
+              <span className="w-10 text-xs font-medium text-muted-foreground uppercase tracking-wider">Za:</span>
               <span className="text-sm">Marko Horvat &lt;marko.horvat@email.si&gt;</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="w-16 text-xs font-medium text-muted-foreground uppercase tracking-wider">Zadeva:</span>
+              <span className="w-10 text-xs font-medium text-muted-foreground uppercase tracking-wider">Zadeva:</span>
               <span className="text-sm font-medium">Re: Pregled pogodbe o zaposlitvi — Preliminarno mnenje</span>
             </div>
           </div>
