@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     // Use Microsoft Graph API via Outlook SMTP relay
     // Since SMTP STARTTLS is problematic in edge runtime, use raw TLS on port 465
     const conn = await Deno.connectTls({
-      hostname: "smtp.office365.com",
+      hostname: "smtp-mail.outlook.com",
       port: 587,
     });
 
