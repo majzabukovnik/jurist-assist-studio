@@ -1,5 +1,3 @@
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
-
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -21,32 +19,60 @@ Deno.serve(async (req) => {
       );
     }
 
-    const smtpHost = Deno.env.get("SMTP_HOST")!;
-    const smtpPort = parseInt(Deno.env.get("SMTP_PORT") || "587");
     const smtpUser = Deno.env.get("SMTP_USER")!;
     const smtpPass = Deno.env.get("SMTP_PASS")!;
 
-    const client = new SMTPClient({
-      connection: {
-        hostname: smtpHost,
-        port: smtpPort,
-        tls: false,
-        auth: {
-          username: smtpUser,
-          password: smtpPass,
-        },
-      },
+    // Use Microsoft Graph API via Outlook SMTP relay
+    // Since SMTP STARTTLS is problematic in edge runtime, use raw TLS on port 465
+    const conn = await Deno.connectTls({
+      hostname: "smtp.office365.com",
+      port: 587,
     });
 
-    await client.send({
-      from: smtpUser,
-      to: toName ? `${toName} <${to}>` : to,
-      subject,
-      content: "auto",
-      html: body,
-    });
+    const encoder = new TextEncoder();
+    const decoder = new TextDecoder();
 
-    await client.close();
+    async function readResponse(): Promise<string> {
+      const buf = new Uint8Array(4096);
+      const n = await conn.read(buf);
+      return decoder.decode(buf.subarray(0, n!));
+    }
+
+    async function sendCmd(cmd: string): Promise<string> {
+      await conn.write(encoder.encode(cmd + "\r\n"));
+      return await readResponse();
+    }
+
+    // Read greeting
+    await readResponse();
+
+    await sendCmd(`EHLO lovable.app`);
+    await sendCmd(`AUTH LOGIN`);
+    await sendCmd(btoa(smtpUser));
+    await sendCmd(btoa(smtpPass));
+    await sendCmd(`MAIL FROM:<${smtpUser}>`);
+    await sendCmd(`RCPT TO:<${to}>`);
+    await sendCmd(`DATA`);
+
+    const recipient = toName ? `${toName} <${to}>` : to;
+    const mimeMessage = [
+      `From: ${smtpUser}`,
+      `To: ${recipient}`,
+      `Subject: =?UTF-8?B?${btoa(unescape(encodeURIComponent(subject)))}?=`,
+      `MIME-Version: 1.0`,
+      `Content-Type: text/html; charset=UTF-8`,
+      ``,
+      body,
+      `.`,
+    ].join("\r\n");
+
+    const dataResp = await sendCmd(mimeMessage);
+    await sendCmd(`QUIT`);
+    conn.close();
+
+    if (!dataResp.startsWith("2")) {
+      throw new Error(`SMTP error: ${dataResp}`);
+    }
 
     return new Response(
       JSON.stringify({ success: true }),
