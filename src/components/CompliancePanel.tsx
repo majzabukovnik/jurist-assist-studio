@@ -56,7 +56,21 @@ export function CompliancePanel() {
         {/* Case summary */}
         <Card className="border p-4 shadow-sm">
           <SectionHeader icon={Briefcase} title="Povzetek primera" />
-          <p className="text-sm leading-relaxed">{data.povzetek_primera}</p>
+          {data.povzetek_primera ? (
+            <ul className="space-y-1 text-sm">
+              {data.povzetek_primera
+                .split(/(?<=\.)\s+/)
+                .filter(Boolean)
+                .map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-muted-foreground">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+            </ul>
+          ) : (
+            <span className="text-xs text-muted-foreground">—</span>
+          )}
           {(data.povzetek ?? []).length > 0 && (
             <div className="mt-3 rounded-lg border bg-muted/30 p-3">
               <h5 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
