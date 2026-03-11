@@ -30,6 +30,69 @@ function SectionHeader({ icon: Icon, title }: { icon: React.ElementType; title: 
   );
 }
 
+function RiskCard({
+  icon: Icon,
+  title,
+  level,
+  label,
+}: {
+  icon: React.ElementType;
+  title: string;
+  level: "green" | "yellow" | "red";
+  label: string;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  const bgMap = {
+    green: "bg-status-green",
+    yellow: "bg-status-yellow",
+    red: "bg-status-red",
+  };
+
+  const borderMap = {
+    green: "border-status-green/30",
+    yellow: "border-status-yellow/30",
+    red: "border-status-red/30",
+  };
+
+  const bgLightMap = {
+    green: "bg-status-green-bg",
+    yellow: "bg-status-yellow-bg",
+    red: "bg-status-red-bg",
+  };
+
+  if (!label) {
+    return (
+      <Card className="border p-4 shadow-sm">
+        <SectionHeader icon={Icon} title={title} />
+        <span className="text-xs text-muted-foreground">—</span>
+      </Card>
+    );
+  }
+
+  return (
+    <Card
+      className={`border shadow-sm transition-all duration-200 cursor-default overflow-hidden ${borderMap[level]} ${
+        hovered ? "p-4" : `p-3 ${bgLightMap[level]}`
+      }`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {hovered ? (
+        <>
+          <SectionHeader icon={Icon} title={title} />
+          <StatusBadge level={level} label={label} />
+        </>
+      ) : (
+        <div className="flex items-center gap-2">
+          <span className={`h-2.5 w-2.5 rounded-full shrink-0 ${bgMap[level]}`} />
+          <span className="text-xs font-medium truncate">{title}</span>
+        </div>
+      )}
+    </Card>
+  );
+}
+
 export function CompliancePanel() {
   const { data, loading } = useCompliance();
 
