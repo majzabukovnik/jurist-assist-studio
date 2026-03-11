@@ -26,7 +26,7 @@ export function EmailPanel() {
       <div className="flex-1 overflow-y-auto p-6">
         <Card className="border shadow-sm">
           {/* Email header fields */}
-          <div className="space-y-3 border-b p-5">
+          <div className="space-y-1.5 border-b p-5">
             <div className="flex items-center gap-3">
               <span className="w-16 text-xs font-medium text-muted-foreground uppercase tracking-wider">Od:</span>
               <span className="text-sm">Odvetniška pisarna Novak d.o.o. &lt;info@novak-law.si&gt;</span>
@@ -46,16 +46,13 @@ export function EmailPanel() {
             <p>Spoštovani gospod Horvat,</p>
 
             <p>
-              Na podlagi informacij iz vašega sporočila razumemo, da se vaše vprašanje nanaša na [kratka opredelitev problema]. Po naši začetni oceni se zadeva nanaša predvsem na področje [PRAVNO PODROČJE], lahko pa vključuje tudi elemente [morebitna dodatna področja].
+              zahvaljujemo se Vam za zaupanje in posredovano dokumentacijo. Po pregledu Vaše pogodbe o zaposlitvi
+              Vam v nadaljevanju podajamo preliminarno pravno mnenje.
             </p>
 
             {/* Legal summary */}
             <Card className="border bg-muted/30 p-4">
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">• [ključna dejanska okoliščina] 
-• [ključna pravna ali poslovna situacija] 
-• [morebitni časovni ali poslovni kontekst]
-
-              </h4>
+              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">POVZETEK VAŠE SITUACIJE</h4>
               <p className="text-sm">
                 Pogodba o zaposlitvi vsebuje konkurenčno klavzulo, ki presega zakonsko dovoljeni obseg (24 mesecev).
                 Prav tako manjka jasna opredelitev delovnega časa in pravice do odklopa. Priporočamo pogajanja
@@ -88,7 +85,11 @@ export function EmailPanel() {
             <div>
               <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Predlagana pravna ekipa</h4>
               <div className="grid grid-cols-2 gap-3">
-                {[{ name: "dr. Ana Novak", role: "Delovno pravo", available: true }, { name: "mag. Peter Krajnc", role: "Gospodarsko pravo", available: true }].map((lawyer) => <div key={lawyer.name} className="flex items-center gap-3 rounded-lg border p-3">
+                {[
+                { name: "dr. Ana Novak", role: "Delovno pravo", available: true },
+                { name: "mag. Peter Krajnc", role: "Gospodarsko pravo", available: true }].
+                map((lawyer) =>
+                <div key={lawyer.name} className="flex items-center gap-3 rounded-lg border p-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
                       <User className="h-4 w-4 text-primary" />
                     </div>
@@ -96,7 +97,8 @@ export function EmailPanel() {
                       <p className="text-sm font-medium">{lawyer.name}</p>
                       <p className="text-xs text-muted-foreground">{lawyer.role}</p>
                     </div>
-                    {lawyer.available && <span className="ml-auto h-2 w-2 rounded-full bg-status-green" />
+                    {lawyer.available &&
+                  <span className="ml-auto h-2 w-2 rounded-full bg-status-green" />
                   }
                   </div>
                 )}
