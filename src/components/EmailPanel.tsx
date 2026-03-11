@@ -238,7 +238,7 @@ export function EmailPanel() {
               <AutoResizeTextarea value={zakljucek} onChange={setZakljucek} />
             )}
 
-            {podpis !== undefined && (
+            {podpis && (
               <AutoResizeTextarea value={podpis} onChange={setPodpis} className="font-medium" />
             )}
           </div>
