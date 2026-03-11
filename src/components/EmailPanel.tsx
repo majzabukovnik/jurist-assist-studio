@@ -1,48 +1,30 @@
-import { Mail, Paperclip, Send, Clock, User } from "lucide-react";
+import { Mail, Paperclip, Send, Clock, User, Loader2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import type { EmailDraft } from "@/types/emailDraft";
 import { format } from "date-fns";
 import { sl } from "date-fns/locale";
+import { useSummary } from "@/hooks/useSummary";
 
-const sampleData: EmailDraft = {
-  od: { ime: "Odvetniška pisarna Novak d.o.o.", email: "info@novak-law.si" },
-  za: { ime: "Marko Horvat", email: "marko.horvat@email.si" },
-  zadeva: "Re: Pregled pogodbe o zaposlitvi — Preliminarno mnenje",
-  pozdrav: "Spoštovani gospod Horvat,",
-  uvod: "zahvaljujemo se Vam za zaupanje in posredovano dokumentacijo. Po pregledu Vaše pogodbe o zaposlitvi Vam v nadaljevanju podajamo preliminarno pravno mnenje.",
-  opis_problema:
-  "Na podlagi informacij iz vašega sporočila razumemo, da se vaše vprašanje nanaša na [kratka opredelitev problema]. Po naši začetni oceni se zadeva nanaša predvsem na področje [PRAVNO PODROČJE], lahko pa vključuje tudi elemente [morebitna dodatna področja].",
-  povzetek: [
-  "ključna dejanska okoliščina",
-  "ključna pravna ali poslovna situacija",
-  "morebitni časovni ali poslovni kontekst"],
+export function EmailPanel() {
+  const { data, loading } = useSummary();
 
-  vprasanja: [
-  "Ali ste že podpisali katerikoli dokument pri delodajalcu?",
-  "Ali obstaja možnost pogajanj o pogojih pogodbe?",
-  "Ali ste bili pri prejšnjem delodajalcu vezani s konkurenčno klavzulo?"],
+  if (loading) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
 
-  pravna_ekipa: [
-  { ime: "dr. Ana Novak", podrocje: "Delovno pravo", dostopen: true },
-  { ime: "mag. Peter Krajnc", podrocje: "Gospodarsko pravo", dostopen: true }],
-
-  naslednji_koraki: [
-  "Če vam ustreza, lahko v naslednjih dneh organiziramo tudi kratek uvodni klic, na katerem bi lahko podrobneje obravnavali vašo situacijo. Ali vam bi ustrezalo [IZBERI DATUM IN URO]?",
-  "Posredujte odgovore na zgornja vprašanja.",
-  "Priprava pogajalske strategije"],
-
-  podpis: "Odvetniška pisarna Novak d.o.o.",
-  generirano: "2026-03-11T14:32:00Z"
-};
-
-interface EmailPanelProps {
-  data?: EmailDraft;
-}
-
-export function EmailPanel({ data = sampleData }: EmailPanelProps) {
+  if (!data) {
+    return (
+      <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
+        Ni podatkov. Čakam na nov vnos iz n8n…
+      </div>
+    );
+  }
   const generiranoDatum = format(new Date(data.generirano), "d. M. yyyy, HH:mm", { locale: sl });
 
   return (
@@ -117,6 +99,7 @@ export function EmailPanel({ data = sampleData }: EmailPanelProps) {
             <Separator />
 
             {/* Suggested legal team */}
+            {data.pravna_ekipa.length > 0 && (
             <div>
               <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Predlagana pravna ekipa
@@ -136,6 +119,7 @@ export function EmailPanel({ data = sampleData }: EmailPanelProps) {
                 )}
               </div>
             </div>
+            )}
 
             <Separator />
 
