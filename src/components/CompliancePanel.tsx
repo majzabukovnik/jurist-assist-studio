@@ -228,19 +228,8 @@ export function CompliancePanel() {
             <Button
               variant="outline"
               className="flex-1 gap-2 border-status-yellow text-status-yellow hover:bg-status-yellow-bg"
-              onClick={async () => {
-                const { data: latest } = await supabase
-                  .from("email_queue")
-                  .select("id")
-                  .in("status", ["sent", "accepted", "rejected"])
-                  .order("created_at", { ascending: false })
-                  .limit(1);
-                if (latest && latest[0]) {
-                  await supabase.from("email_queue").update({ status: "pending" }).eq("id", latest[0].id);
-                  toast.success("Email vrnjen v čakalno vrsto");
-                } else {
-                  toast.info("Ni mailov za pregled");
-                }
+              onClick={() => {
+                toast.info("Email ostane v trenutnem stanju");
               }}
             >
               <Eye className="h-4 w-4" />
