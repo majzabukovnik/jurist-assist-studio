@@ -211,7 +211,7 @@ export function CompliancePanel() {
                     <div className="w-16">
                       <Progress value={lawyer.load} className="h-1" />
                     </div>
-                    <span className={`h-2 w-2 rounded-full ${lawyer.available ? "bg-status-green" : "bg-status-red"}`} />
+                    <span className={`h-3 w-3 rounded-full ${lawyer.available ? "bg-status-green" : "bg-status-red"}`} />
                   </div>
                 </div>
               ))}
