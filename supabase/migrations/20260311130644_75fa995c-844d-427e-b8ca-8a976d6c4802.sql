@@ -1,0 +1,1 @@
+ALTER TABLE public.compliance ADD COLUMN povzetek text[] DEFAULT NULL;

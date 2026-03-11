@@ -28,6 +28,7 @@ export interface ComplianceData {
   kompleksnost_label: string;
   roki: ComplianceDeadline[];
   odvetniki: ComplianceLawyer[];
+  povzetek: string[];
   priporocilo: string;
 }
 
@@ -44,6 +45,7 @@ const emptyCompliance: ComplianceData = {
   kompleksnost_label: "",
   roki: [],
   odvetniki: [],
+  povzetek: [],
   priporocilo: "",
 };
 
@@ -60,6 +62,7 @@ const mapRow = (row: any): ComplianceData => ({
   kompleksnost_label: row.kompleksnost_label ?? "",
   roki: (row.roki ?? []).map((r: any) => (typeof r === "string" ? JSON.parse(r) : r)),
   odvetniki: (row.odvetniki ?? []).map((o: any) => (typeof o === "string" ? JSON.parse(o) : o)),
+  povzetek: row.povzetek ?? [],
   priporocilo: row.priporocilo ?? "",
 });
 

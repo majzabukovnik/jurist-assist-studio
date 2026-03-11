@@ -27,6 +27,7 @@ export type Database = {
           konflikt_interesov_level: string | null
           odvetniki: Json | null
           panoge: string[] | null
+          povzetek: string[] | null
           povzetek_primera: string | null
           pravna_podrocja: string[] | null
           priporocilo: string | null
@@ -44,6 +45,7 @@ export type Database = {
           konflikt_interesov_level?: string | null
           odvetniki?: Json | null
           panoge?: string[] | null
+          povzetek?: string[] | null
           povzetek_primera?: string | null
           pravna_podrocja?: string[] | null
           priporocilo?: string | null
@@ -61,6 +63,7 @@ export type Database = {
           konflikt_interesov_level?: string | null
           odvetniki?: Json | null
           panoge?: string[] | null
+          povzetek?: string[] | null
           povzetek_primera?: string | null
           pravna_podrocja?: string[] | null
           priporocilo?: string | null
