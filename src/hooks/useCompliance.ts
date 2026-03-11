@@ -45,6 +45,7 @@ const emptyCompliance: ComplianceData = {
   kompleksnost_label: "",
   roki: [],
   odvetniki: [],
+  povzetek: [],
   priporocilo: "",
 };
 
