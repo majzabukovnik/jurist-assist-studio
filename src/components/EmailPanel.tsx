@@ -26,7 +26,7 @@ export function EmailPanel() {
       <div className="flex-1 overflow-y-auto p-6">
         <Card className="border shadow-sm">
           {/* Email header fields */}
-          <div className="space-y-3 border-b p-5">
+          <div className="space-y-1.5 border-b p-5">
             <div className="flex items-center gap-3">
               <span className="w-16 text-xs font-medium text-muted-foreground uppercase tracking-wider">Od:</span>
               <span className="text-sm">Odvetniška pisarna Novak d.o.o. &lt;info@novak-law.si&gt;</span>
