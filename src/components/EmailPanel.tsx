@@ -147,7 +147,7 @@ export function EmailPanel() {
               <ul className="space-y-1.5 pl-4">
                 {vprasanja.map((v, i) => (
                   <li key={i} className="flex items-center gap-2 group">
-                    <span className="text-primary">•</span>
+                    <span className="text-primary leading-none text-xs">●</span>
                     <input
                       value={v}
                       onChange={(e) => updateListItem(vprasanja, setVprasanja, i, e.target.value)}
