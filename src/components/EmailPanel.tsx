@@ -7,8 +7,6 @@ import { format } from "date-fns";
 import { sl } from "date-fns/locale";
 import { useSummary } from "@/hooks/useSummary";
 import { useEffect, useState, useCallback, useRef } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 
 function AutoResizeTextarea({
   value,
@@ -47,7 +45,6 @@ function AutoResizeTextarea({
 
 export function EmailPanel() {
   const { data, loading } = useSummary();
-  const [sending, setSending] = useState(false);
 
   const [pozdrav, setPozdrav] = useState("");
   const [uvod, setUvod] = useState("");
@@ -100,47 +97,6 @@ export function EmailPanel() {
     setList([...list, ""]);
   };
 
-  const buildEmailHtml = () => {
-    const listToHtml = (items: string[]) =>
-      items.map((item) => `<li style="margin-bottom:4px">${item}</li>`).join("");
-
-    return `
-      <div style="font-family:sans-serif;font-size:14px;line-height:1.6;color:#222">
-        <p>${pozdrav}</p>
-        <p>${uvod}</p>
-        <p>${opisProblema}</p>
-        ${vprasanja.length > 0 ? `<p><strong>Dodatna vprašanja:</strong></p><ul>${listToHtml(vprasanja)}</ul>` : ""}
-        ${naslednjiKoraki.length > 0 ? `<p><strong>Naslednji koraki:</strong></p><ul>${listToHtml(naslednjiKoraki)}</ul>` : ""}
-        ${zakljucek ? `<p>${zakljucek}</p>` : ""}
-        ${podpis ? `<p><strong>${podpis}</strong></p>` : ""}
-      </div>
-    `;
-  };
-
-  const handleSend = async () => {
-    setSending(true);
-    try {
-      const { data: res, error } = await supabase.functions.invoke("send-email", {
-        body: {
-          to: data.za.email,
-          toName: data.za.ime,
-          subject: data.zadeva,
-          body: buildEmailHtml(),
-        },
-      });
-
-      if (error) throw error;
-      if (res?.error) throw new Error(res.error);
-
-      toast.success("Email uspešno poslan!");
-    } catch (err: any) {
-      console.error("Send error:", err);
-      toast.error("Napaka pri pošiljanju: " + (err.message || "Neznana napaka"));
-    } finally {
-      setSending(false);
-    }
-  };
-
   return (
     <div className="flex h-full flex-col">
       {/* Header */}
@@ -165,11 +121,11 @@ export function EmailPanel() {
           <div className="space-y-1 border-b p-4">
             <div className="flex items-center gap-2">
               <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Od:</span>
-              <span className="text-xs">{data.od.email}</span>
+              <span className="text-xs">{data.od.ime} &lt;{data.od.email}&gt;</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Za:</span>
-              <span className="text-xs">{data.za.email}</span>
+              <span className="text-xs">{data.za.ime} &lt;{data.za.email}&gt;</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Zadeva:</span>
@@ -291,9 +247,9 @@ export function EmailPanel() {
 
       {/* Footer actions */}
       <div className="flex items-center gap-2 border-t px-6 py-3">
-        <Button size="sm" className="gap-1.5" onClick={handleSend} disabled={sending}>
-          {sending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
-          {sending ? "Pošiljam..." : "Pošlji"}
+        <Button size="sm" className="gap-1.5">
+          <Send className="h-3.5 w-3.5" />
+          Pošlji
         </Button>
         <Button size="sm" variant="outline" className="gap-1.5">
           <Paperclip className="h-3.5 w-3.5" />
