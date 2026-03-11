@@ -45,8 +45,8 @@ function AutoResizeTextarea({
   );
 }
 
-export function EmailPanel() {
-  const { data, loading } = useSummary();
+export function EmailPanel({ summary }: { summary: { data: ReturnType<typeof useSummary>["data"]; loading: boolean } }) {
+  const { data, loading } = summary;
   const [sending, setSending] = useState(false);
 
   const [pozdrav, setPozdrav] = useState("");

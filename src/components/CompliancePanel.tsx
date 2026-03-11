@@ -31,7 +31,7 @@ function SectionHeader({ icon: Icon, title }: { icon: React.ElementType; title: 
   );
 }
 
-export function CompliancePanel() {
+export function CompliancePanel({ currentEmail }: { currentEmail?: { za: { ime: string; email: string }; zadeva: string } }) {
   const { data, loading } = useCompliance();
 
   if (loading) {
@@ -208,18 +208,17 @@ export function CompliancePanel() {
             <Button
               className="flex-1 gap-2 bg-status-green hover:bg-status-green/90 text-primary-foreground"
               onClick={async () => {
-                const { data: latest } = await supabase
-                  .from("email_queue")
-                  .select("id")
-                  .in("status", ["sent", "pending", "in_progress"])
-                  .order("created_at", { ascending: false })
-                  .limit(1);
-                if (latest && latest[0]) {
-                  await supabase.from("email_queue").update({ status: "accepted" }).eq("id", latest[0].id);
-                  toast.success("Email sprejet");
-                } else {
-                  toast.info("Ni mailov za sprejem");
+                if (!currentEmail?.za.email) {
+                  toast.info("Ni trenutnega maila");
+                  return;
                 }
+                await supabase.from("email_queue").insert({
+                  to_name: currentEmail.za.ime,
+                  to_email: currentEmail.za.email,
+                  subject: currentEmail.zadeva,
+                  status: "accepted",
+                });
+                toast.success("Email sprejet");
               }}
             >
               <CheckCircle2 className="h-4 w-4" />
@@ -239,18 +238,17 @@ export function CompliancePanel() {
               variant="outline"
               className="flex-1 gap-2 border-status-red text-status-red hover:bg-status-red-bg"
               onClick={async () => {
-                const { data: latest } = await supabase
-                  .from("email_queue")
-                  .select("id")
-                  .in("status", ["sent", "pending", "in_progress"])
-                  .order("created_at", { ascending: false })
-                  .limit(1);
-                if (latest && latest[0]) {
-                  await supabase.from("email_queue").update({ status: "rejected" }).eq("id", latest[0].id);
-                  toast.success("Email zavržen");
-                } else {
-                  toast.info("Ni mailov za zavrnitev");
+                if (!currentEmail?.za.email) {
+                  toast.info("Ni trenutnega maila");
+                  return;
                 }
+                await supabase.from("email_queue").insert({
+                  to_name: currentEmail.za.ime,
+                  to_email: currentEmail.za.email,
+                  subject: currentEmail.zadeva,
+                  status: "rejected",
+                });
+                toast.success("Email zavržen");
               }}
             >
               <XCircle className="h-4 w-4" />
