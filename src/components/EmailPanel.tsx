@@ -57,10 +57,8 @@ export function EmailPanel() {
             {/* Legal summary */}
             <Card className="border bg-muted/30 p-4">
               <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">POVZETEK VAŠE SITUACIJE</h4>
-              <p className="text-sm">
-                Pogodba o zaposlitvi vsebuje konkurenčno klavzulo, ki presega zakonsko dovoljeni obseg (24 mesecev).
-                Prav tako manjka jasna opredelitev delovnega časa in pravice do odklopa. Priporočamo pogajanja
-                za spremembo pogojev pred podpisom.
+              <p className="text-sm whitespace-pre-line">
+                {"• [ključna dejanska okoliščina]\n• [ključna pravna ali poslovna situacija]\n• [morebitni časovni ali poslovni kontekst]"}
               </p>
             </Card>
 
