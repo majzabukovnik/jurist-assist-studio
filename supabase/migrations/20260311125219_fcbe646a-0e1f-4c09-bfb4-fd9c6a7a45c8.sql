@@ -1,0 +1,1 @@
+CREATE POLICY "Allow public read access on summaries" ON public.summaries FOR SELECT TO anon, authenticated USING (true);
