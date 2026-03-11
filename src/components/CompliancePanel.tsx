@@ -117,25 +117,46 @@ export function CompliancePanel() {
 
         {/* Risk indicators row */}
         <div className="grid grid-cols-3 gap-4">
-          <Card className="border p-4 shadow-sm">
+          <Card className="group border p-4 shadow-sm transition-all hover:shadow-md cursor-default">
             <SectionHeader icon={AlertTriangle} title="Konflikt interesov" />
             <div className="flex items-center gap-2">
               <span className={`h-2.5 w-2.5 rounded-full ${data.konflikt_interesov_level === "red" ? "bg-status-red" : data.konflikt_interesov_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
-              <span className="text-sm text-muted-foreground">{data.konflikt_interesov_label || "—"}</span>
+              <span className="text-sm text-muted-foreground">
+                <span className="group-hover:hidden">
+                  {data.konflikt_interesov_level === "green" ? "Ni konflikta" : "Je konflikt"}
+                </span>
+                <span className="hidden group-hover:inline">
+                  {data.konflikt_interesov_label || "—"}
+                </span>
+              </span>
             </div>
           </Card>
-          <Card className="border p-4 shadow-sm">
+          <Card className="group border p-4 shadow-sm transition-all hover:shadow-md cursor-default">
             <SectionHeader icon={Shield} title="AML/KYC tveganje" />
             <div className="flex items-center gap-2">
               <span className={`h-2.5 w-2.5 rounded-full ${data.aml_kyc_level === "red" ? "bg-status-red" : data.aml_kyc_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
-              <span className="text-sm text-muted-foreground">{data.aml_kyc_label || "—"}</span>
+              <span className="text-sm text-muted-foreground">
+                <span className="group-hover:hidden">
+                  {data.aml_kyc_level === "green" ? "Nizko tveganje" : data.aml_kyc_level === "yellow" ? "Srednje tveganje" : "Visoko tveganje"}
+                </span>
+                <span className="hidden group-hover:inline">
+                  {data.aml_kyc_label || "—"}
+                </span>
+              </span>
             </div>
           </Card>
-          <Card className="border p-4 shadow-sm">
+          <Card className="group border p-4 shadow-sm transition-all hover:shadow-md cursor-default">
             <SectionHeader icon={BarChart3} title="Kompleksnost" />
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold">{data.kompleksnost_label || "—"}</span>
+                <span className="text-sm font-semibold">
+                  <span className="group-hover:hidden">
+                    {data.kompleksnost <= 3 ? "Nizka" : data.kompleksnost <= 6 ? "Srednja" : "Visoka"}
+                  </span>
+                  <span className="hidden group-hover:inline">
+                    {data.kompleksnost_label || "—"}
+                  </span>
+                </span>
                 <span className="text-xs text-muted-foreground">{data.kompleksnost}/10</span>
               </div>
               <Progress value={data.kompleksnost * 10} className="h-1.5" />
