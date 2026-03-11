@@ -34,7 +34,7 @@ export function useSummary() {
     pravna_ekipa: [],
     naslednji_koraki: row.naslednji_koraki ?? [],
     zakljucek: row.zakljucek ?? "",
-    podpis: "hekaton.test@outlook.com",
+    podpis: row.od_ime ?? "",
     generirano: row.created_at,
   });
 
