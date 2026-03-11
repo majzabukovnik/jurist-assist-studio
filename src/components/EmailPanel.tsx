@@ -113,6 +113,21 @@ export function EmailPanel() {
 
   const handleSend = async () => {
     setSending(true);
+
+    // Insert into queue as pending
+    const { data: queueRow, error: queueErr } = await supabase
+      .from("email_queue")
+      .insert({
+        to_name: data.za.ime,
+        to_email: data.za.email,
+        subject: data.zadeva,
+        status: "in_progress",
+      })
+      .select("id")
+      .single();
+
+    const queueId = queueRow?.id;
+
     try {
       const { data: res, error } = await supabase.functions.invoke("send-email", {
         body: {
@@ -126,9 +141,26 @@ export function EmailPanel() {
       if (error) throw error;
       if (res?.error) throw new Error(res.error);
 
+      // Mark as sent
+      if (queueId) {
+        await supabase
+          .from("email_queue")
+          .update({ status: "sent", sent_at: new Date().toISOString() })
+          .eq("id", queueId);
+      }
+
       toast.success("Email uspešno poslan!");
     } catch (err: any) {
       console.error("Send error:", err);
+
+      // Mark as failed
+      if (queueId) {
+        await supabase
+          .from("email_queue")
+          .update({ status: "failed" })
+          .eq("id", queueId);
+      }
+
       toast.error("Napaka pri pošiljanju: " + (err.message || "Neznana napaka"));
     } finally {
       setSending(false);
