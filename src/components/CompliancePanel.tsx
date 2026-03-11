@@ -59,7 +59,7 @@ export function CompliancePanel() {
           {data.povzetek_primera ? (
             <ul className="space-y-1 text-sm">
               {data.povzetek_primera
-                .split(/(?<=[^a-zA-ZčšžČŠŽ]\.)\s+(?=[A-ZČŠŽ])/)
+                .split(/(?<![dsop]\s?)(?<=\.)\s+(?=[A-ZČŠŽ])/)
                 .filter(Boolean)
                 .map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
