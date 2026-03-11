@@ -210,7 +210,7 @@ export function CompliancePanel() {
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-muted-foreground">{lawyer.load}</span>
                     <div className="w-16">
-                      <Progress value={Math.min(lawyer.load / 4 * 100, 100)} className={`h-1 ${lawyer.load < 2 ? "[&>div]:bg-status-green" : lawyer.load < 2.5 ? "[&>div]:bg-status-yellow" : "[&>div]:bg-status-red"}`} />
+                      <Progress value={Math.min(((lawyer.load - 1) / 2) * 100, 100)} className={`h-1 ${lawyer.load < 2 ? "[&>div]:bg-status-green" : lawyer.load < 2.5 ? "[&>div]:bg-status-yellow" : "[&>div]:bg-status-red"}`} />
                     </div>
                     <span className={`h-3 w-3 rounded-full ${lawyer.load < 2 ? "bg-status-green" : lawyer.load < 2.5 ? "bg-status-yellow" : "bg-status-red"}`} />
                   </div>
