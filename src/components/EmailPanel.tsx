@@ -141,7 +141,7 @@ export function EmailPanel() {
 
             {/* Follow-up questions */}
             <div>
-              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-primary">
                 DODATNA VPRAŠANJA
               </h4>
               <ul className="space-y-1.5 pl-4">
