@@ -137,7 +137,6 @@ export function EmailPanel() {
                   "Priprava pogajalske strategije",
                 ].map((step, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm">
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                     {step}
                   </li>
                 ))}
