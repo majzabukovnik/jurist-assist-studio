@@ -123,7 +123,7 @@ export function CompliancePanel() {
               <span className={`h-3 w-3 rounded-full ${data.konflikt_interesov_level === "red" ? "bg-status-red" : data.konflikt_interesov_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
               <span className="text-sm text-muted-foreground">
                 <span className="group-hover:hidden">
-                  {data.konflikt_interesov_level === "green" ? "Ni konflikta" : "Je konflikt"}
+                  {data.konflikt_interesov_level === "green" ? "Ni konflikta" : data.konflikt_interesov_level === "yellow" ? "Ni mogoče ugotoviti" : "Je konflikt"}
                 </span>
                 <span className="hidden group-hover:inline">
                   {data.konflikt_interesov_label || "—"}
