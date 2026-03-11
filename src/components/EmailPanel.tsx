@@ -70,16 +70,14 @@ export function EmailPanel() {
               <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 DODATNA VPRAŠANJA
               </h4>
-              <ol className="space-y-1.5 pl-4">
+              <ul className="space-y-1.5 pl-4">
                 {data.vprasanja.map((vprasanje, i) =>
                 <li key={i} className="flex items-start gap-2">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
-                      {i + 1}
-                    </span>
+                    <span className="text-muted-foreground">•</span>
                     <span>{vprasanje}</span>
                   </li>
                 )}
-              </ol>
+              </ul>
             </div>
 
             <Separator />
