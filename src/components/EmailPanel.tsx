@@ -50,6 +50,10 @@ export function EmailPanel() {
               Vam v nadaljevanju podajamo preliminarno pravno mnenje.
             </p>
 
+            <p>
+              Na podlagi informacij iz vašega sporočila razumemo, da se vaše vprašanje nanaša na [kratka opredelitev problema]. Po naši začetni oceni se zadeva nanaša predvsem na področje [PRAVNO PODROČJE], lahko pa vključuje tudi elemente [morebitna dodatna področja].
+            </p>
+
             {/* Legal summary */}
             <Card className="border bg-muted/30 p-4">
               <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">POVZETEK VAŠE SITUACIJE</h4>
