@@ -119,25 +119,23 @@ export function CompliancePanel() {
         <div className="grid grid-cols-3 gap-4">
           <Card className="border p-4 shadow-sm">
             <SectionHeader icon={AlertTriangle} title="Konflikt interesov" />
-            {data.konflikt_interesov_label ? (
-              <StatusBadge level={data.konflikt_interesov_level} label={data.konflikt_interesov_label} />
-            ) : (
-              <span className="text-xs text-muted-foreground">—</span>
-            )}
+            <div className="flex items-center gap-2">
+              <span className={`h-2.5 w-2.5 rounded-full ${data.konflikt_interesov_level === "red" ? "bg-status-red" : data.konflikt_interesov_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
+              <span className="text-sm text-muted-foreground">{data.konflikt_interesov_label || "—"}</span>
+            </div>
           </Card>
           <Card className="border p-4 shadow-sm">
             <SectionHeader icon={Shield} title="AML/KYC tveganje" />
-            {data.aml_kyc_label ? (
-              <StatusBadge level={data.aml_kyc_level} label={data.aml_kyc_label} />
-            ) : (
-              <span className="text-xs text-muted-foreground">—</span>
-            )}
+            <div className="flex items-center gap-2">
+              <span className={`h-2.5 w-2.5 rounded-full ${data.aml_kyc_level === "red" ? "bg-status-red" : data.aml_kyc_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
+              <span className="text-sm text-muted-foreground">{data.aml_kyc_label || "—"}</span>
+            </div>
           </Card>
           <Card className="border p-4 shadow-sm">
             <SectionHeader icon={BarChart3} title="Kompleksnost" />
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">{data.kompleksnost_label || "—"}</span>
+                <span className="text-sm font-semibold">{data.kompleksnost_label || "—"}</span>
                 <span className="text-xs text-muted-foreground">{data.kompleksnost}/10</span>
               </div>
               <Progress value={data.kompleksnost * 10} className="h-1.5" />
