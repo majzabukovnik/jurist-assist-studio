@@ -20,12 +20,11 @@ import { Progress } from "@/components/ui/progress";
 import { StatusBadge } from "@/components/StatusBadge";
 import { useCompliance } from "@/hooks/useCompliance";
 
-function SectionHeader({ icon: Icon, title, colorClass }: { icon: React.ElementType; title: string; colorClass?: string }) {
-  const color = colorClass || "text-muted-foreground";
+function SectionHeader({ icon: Icon, title }: { icon: React.ElementType; title: string }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <Icon className={`h-4 w-4 ${color}`} />
-      <h4 className={`text-xs font-semibold uppercase tracking-wider ${color}`}>{title}</h4>
+      <Icon className="h-4 w-4 text-muted-foreground" />
+      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h4>
     </div>
   );
 }
@@ -119,7 +118,7 @@ export function CompliancePanel() {
         {/* Risk indicators row */}
         <div className="grid grid-cols-3 gap-4">
           <Card className="group border p-4 shadow-sm transition-all hover:shadow-md cursor-default">
-            <SectionHeader icon={AlertTriangle} title="Konflikt interesov" colorClass={data.konflikt_interesov_level === "red" ? "text-status-red" : data.konflikt_interesov_level === "yellow" ? "text-status-yellow" : "text-status-green"} />
+            <SectionHeader icon={AlertTriangle} title="Konflikt interesov" />
             <div className="flex items-center gap-2">
               <span className={`h-3 w-3 rounded-full ${data.konflikt_interesov_level === "red" ? "bg-status-red" : data.konflikt_interesov_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
               <span className="text-sm text-muted-foreground">
@@ -133,7 +132,7 @@ export function CompliancePanel() {
             </div>
           </Card>
           <Card className="group border p-4 shadow-sm transition-all hover:shadow-md cursor-default">
-            <SectionHeader icon={Shield} title="AML/KYC tveganje" colorClass={data.aml_kyc_level === "red" ? "text-status-red" : data.aml_kyc_level === "yellow" ? "text-status-yellow" : "text-status-green"} />
+            <SectionHeader icon={Shield} title="AML/KYC tveganje" />
             <div className="flex items-center gap-2">
               <span className={`h-3 w-3 rounded-full ${data.aml_kyc_level === "red" ? "bg-status-red" : data.aml_kyc_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
               <span className="text-sm text-muted-foreground">
@@ -212,7 +211,7 @@ export function CompliancePanel() {
                     <div className="w-16">
                       <Progress value={lawyer.load} className="h-1" />
                     </div>
-                    <span className={`h-3 w-3 rounded-full ${lawyer.available ? "bg-status-green" : "bg-status-red"}`} />
+                    <span className={`h-2 w-2 rounded-full ${lawyer.available ? "bg-status-green" : "bg-status-red"}`} />
                   </div>
                 </div>
               ))}
