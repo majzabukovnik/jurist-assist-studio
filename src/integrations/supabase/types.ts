@@ -25,12 +25,12 @@ export type Database = {
           kompleksnost_label: string | null
           konflikt_interesov_label: string | null
           konflikt_interesov_level: string | null
-          odvetniki: Json[] | null
+          odvetniki: Json | null
           panoge: string[] | null
           povzetek_primera: string | null
           pravna_podrocja: string[] | null
           priporocilo: string | null
-          roki: Json[] | null
+          roki: Json | null
         }
         Insert: {
           aml_kyc_label?: string | null
@@ -42,12 +42,12 @@ export type Database = {
           kompleksnost_label?: string | null
           konflikt_interesov_label?: string | null
           konflikt_interesov_level?: string | null
-          odvetniki?: Json[] | null
+          odvetniki?: Json | null
           panoge?: string[] | null
           povzetek_primera?: string | null
           pravna_podrocja?: string[] | null
           priporocilo?: string | null
-          roki?: Json[] | null
+          roki?: Json | null
         }
         Update: {
           aml_kyc_label?: string | null
@@ -59,12 +59,12 @@ export type Database = {
           kompleksnost_label?: string | null
           konflikt_interesov_label?: string | null
           konflikt_interesov_level?: string | null
-          odvetniki?: Json[] | null
+          odvetniki?: Json | null
           panoge?: string[] | null
           povzetek_primera?: string | null
           pravna_podrocja?: string[] | null
           priporocilo?: string | null
-          roki?: Json[] | null
+          roki?: Json | null
         }
         Relationships: []
       }
