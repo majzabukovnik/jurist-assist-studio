@@ -28,6 +28,7 @@ export interface ComplianceData {
   kompleksnost_label: string;
   roki: ComplianceDeadline[];
   odvetniki: ComplianceLawyer[];
+  povzetek: string[];
   priporocilo: string;
 }
 
