@@ -168,7 +168,7 @@ export function CompliancePanel() {
 
         {/* Deadlines */}
         {data.roki.length > 0 && (
-          <Card className="border p-4 shadow-sm">
+          <div>
             <SectionHeader icon={Timer} title="Pravni roki" />
             <div className="space-y-3">
               {data.roki.map((deadline) => (
@@ -187,7 +187,7 @@ export function CompliancePanel() {
                 </div>
               ))}
             </div>
-          </Card>
+          </div>
         )}
 
         {/* Suggested lawyers */}
