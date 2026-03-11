@@ -120,7 +120,7 @@ export function CompliancePanel() {
           <Card className="group border p-4 shadow-sm transition-all hover:shadow-md cursor-default">
             <SectionHeader icon={AlertTriangle} title="Konflikt interesov" />
             <div className="flex items-center gap-2">
-              <span className={`h-2.5 w-2.5 rounded-full ${data.konflikt_interesov_level === "red" ? "bg-status-red" : data.konflikt_interesov_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
+              <span className={`h-3 w-3 rounded-full ${data.konflikt_interesov_level === "red" ? "bg-status-red" : data.konflikt_interesov_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
               <span className="text-sm text-muted-foreground">
                 <span className="group-hover:hidden">
                   {data.konflikt_interesov_level === "green" ? "Ni konflikta" : "Je konflikt"}
