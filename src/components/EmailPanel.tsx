@@ -38,7 +38,7 @@ function AutoResizeTextarea({
       onChange={(e) => onChange(e.target.value)}
       onInput={resize}
       rows={1}
-      className={`w-full resize-none border-0 bg-transparent p-0 text-sm leading-relaxed outline-none ring-0 transition-colors rounded px-1 -mx-1 hover:bg-muted/50 focus:bg-muted/50 ${className}`}
+      className={`w-full resize-none border-0 bg-transparent p-0 text-sm leading-relaxed outline-none ring-0 transition-colors rounded px-1 -mx-1 hover:bg-muted/50 focus:bg-muted/50 text-justify ${className}`}
     />
   );
 }
