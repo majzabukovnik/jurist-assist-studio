@@ -64,15 +64,6 @@ export function EmailPanel() {
             <p>{data.uvod}</p>
             <p>{data.opis_problema}</p>
 
-            {/* Legal summary */}
-            <Card className="border bg-muted/30 p-4">
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                POVZETEK VAŠE SITUACIJE
-              </h4>
-              <p className="text-sm whitespace-pre-line">
-                {data.povzetek.map((item) => `• ${item}`).join("\n")}
-              </p>
-            </Card>
 
             {/* Follow-up questions */}
             <div>
