@@ -52,7 +52,7 @@ export function EmailPanel() {
 
             {/* Legal summary */}
             <Card className="border bg-muted/30 p-4">
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Povzetek pravnega vprašanja</h4>
+              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">POVZETEK VAŠE SITUACIJE</h4>
               <p className="text-sm">
                 Pogodba o zaposlitvi vsebuje konkurenčno klavzulo, ki presega zakonsko dovoljeni obseg (24 mesecev).
                 Prav tako manjka jasna opredelitev delovnega časa in pravice do odklopa. Priporočamo pogajanja
@@ -86,10 +86,10 @@ export function EmailPanel() {
               <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Predlagana pravna ekipa</h4>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { name: "dr. Ana Novak", role: "Delovno pravo", available: true },
-                  { name: "mag. Peter Krajnc", role: "Gospodarsko pravo", available: true },
-                ].map((lawyer) => (
-                  <div key={lawyer.name} className="flex items-center gap-3 rounded-lg border p-3">
+                { name: "dr. Ana Novak", role: "Delovno pravo", available: true },
+                { name: "mag. Peter Krajnc", role: "Gospodarsko pravo", available: true }].
+                map((lawyer) =>
+                <div key={lawyer.name} className="flex items-center gap-3 rounded-lg border p-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
                       <User className="h-4 w-4 text-primary" />
                     </div>
@@ -97,11 +97,11 @@ export function EmailPanel() {
                       <p className="text-sm font-medium">{lawyer.name}</p>
                       <p className="text-xs text-muted-foreground">{lawyer.role}</p>
                     </div>
-                    {lawyer.available && (
-                      <span className="ml-auto h-2 w-2 rounded-full bg-status-green" />
-                    )}
+                    {lawyer.available &&
+                  <span className="ml-auto h-2 w-2 rounded-full bg-status-green" />
+                  }
                   </div>
-                ))}
+                )}
               </div>
             </div>
 
@@ -112,15 +112,15 @@ export function EmailPanel() {
               <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Naslednji koraki</h4>
               <ul className="space-y-2">
                 {[
-                  "Posredujte odgovore na zgornja vprašanja",
-                  "Sestanek za pregled pogodbe — predlog: 14. 3. 2026",
-                  "Priprava pogajalske strategije",
-                ].map((step, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm">
+                "Posredujte odgovore na zgornja vprašanja",
+                "Sestanek za pregled pogodbe — predlog: 14. 3. 2026",
+                "Priprava pogajalske strategije"].
+                map((step, i) =>
+                <li key={i} className="flex items-center gap-2 text-sm">
                     <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                     {step}
                   </li>
-                ))}
+                )}
               </ul>
             </div>
 
@@ -144,6 +144,6 @@ export function EmailPanel() {
         </Button>
         <span className="ml-auto text-xs text-muted-foreground">AI generirano · n8n pipeline</span>
       </div>
-    </div>
-  );
+    </div>);
+
 }
