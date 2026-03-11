@@ -3,9 +3,11 @@ import { Bot, Bell, Settings, Search, Mail, Inbox } from "lucide-react";
 import { EmailPanel } from "@/components/EmailPanel";
 import { CompliancePanel } from "@/components/CompliancePanel";
 import { EmailQueue } from "@/components/EmailQueue";
+import { useSummary } from "@/hooks/useSummary";
 
 const Index = () => {
   const [leftTab, setLeftTab] = useState<"editor" | "queue">("editor");
+  const summary = useSummary();
 
   return (
     <div className="flex h-screen flex-col bg-background">
@@ -62,10 +64,10 @@ const Index = () => {
       {/* Split screen */}
       <div className="flex flex-1 min-h-0">
         <div className="flex-1 border-r overflow-hidden">
-          {leftTab === "editor" ? <EmailPanel /> : <EmailQueue />}
+          {leftTab === "editor" ? <EmailPanel summary={summary} /> : <EmailQueue />}
         </div>
         <div className="flex-1 overflow-hidden">
-          <CompliancePanel />
+          <CompliancePanel currentEmail={summary.data} />
         </div>
       </div>
     </div>
