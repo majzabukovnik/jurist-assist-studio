@@ -100,6 +100,47 @@ export function EmailPanel() {
     setList([...list, ""]);
   };
 
+  const buildEmailHtml = () => {
+    const listToHtml = (items: string[]) =>
+      items.map((item) => `<li style="margin-bottom:4px">${item}</li>`).join("");
+
+    return `
+      <div style="font-family:sans-serif;font-size:14px;line-height:1.6;color:#222">
+        <p>${pozdrav}</p>
+        <p>${uvod}</p>
+        <p>${opisProblema}</p>
+        ${vprasanja.length > 0 ? `<p><strong>Dodatna vprašanja:</strong></p><ul>${listToHtml(vprasanja)}</ul>` : ""}
+        ${naslednjiKoraki.length > 0 ? `<p><strong>Naslednji koraki:</strong></p><ul>${listToHtml(naslednjiKoraki)}</ul>` : ""}
+        ${zakljucek ? `<p>${zakljucek}</p>` : ""}
+        ${podpis ? `<p><strong>${podpis}</strong></p>` : ""}
+      </div>
+    `;
+  };
+
+  const handleSend = async () => {
+    setSending(true);
+    try {
+      const { data: res, error } = await supabase.functions.invoke("send-email", {
+        body: {
+          to: data.za.email,
+          toName: data.za.ime,
+          subject: data.zadeva,
+          body: buildEmailHtml(),
+        },
+      });
+
+      if (error) throw error;
+      if (res?.error) throw new Error(res.error);
+
+      toast.success("Email uspešno poslan!");
+    } catch (err: any) {
+      console.error("Send error:", err);
+      toast.error("Napaka pri pošiljanju: " + (err.message || "Neznana napaka"));
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <div className="flex h-full flex-col">
       {/* Header */}
