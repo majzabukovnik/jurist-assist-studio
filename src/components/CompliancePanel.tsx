@@ -122,7 +122,7 @@ export function CompliancePanel() {
             <SectionHeader icon={AlertTriangle} title="Konflikt interesov" colorClass={data.konflikt_interesov_level === "red" ? "text-status-red" : data.konflikt_interesov_level === "yellow" ? "text-status-yellow" : "text-status-green"} />
             <div className="flex items-center gap-2">
               <span className={`h-3 w-3 rounded-full ${data.konflikt_interesov_level === "red" ? "bg-status-red" : data.konflikt_interesov_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
-              <span className={`text-sm ${data.konflikt_interesov_level === "red" ? "text-status-red" : data.konflikt_interesov_level === "yellow" ? "text-status-yellow" : "text-status-green"}`}>
+              <span className="text-sm text-muted-foreground">
                 <span className="group-hover:hidden">
                   {data.konflikt_interesov_level === "green" ? "Ni konflikta" : "Je konflikt"}
                 </span>
