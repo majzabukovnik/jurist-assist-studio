@@ -23,7 +23,7 @@ export function useSummary() {
   const [loading, setLoading] = useState(true);
 
   const mapRow = (row: any): EmailDraft => ({
-    od: { ime: row.od_ime ?? "", email: "onboarding@resend.dev" },
+    od: { ime: row.od_ime ?? "", email: "heckaton.test@outlook.com" },
     za: { ime: row.za_ime ?? "", email: row.za_email ?? "heckaton.test@outlook.com" },
     zadeva: row.zadeva ?? "",
     pozdrav: row.pozdrav ?? "",
