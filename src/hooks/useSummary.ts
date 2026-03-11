@@ -48,6 +48,8 @@ export function useSummary() {
 
       if (!error && rows && rows.length > 0) {
         setData(mapRow(rows[0]));
+      } else {
+        setData(emptyDraft);
       }
       setLoading(false);
     };
