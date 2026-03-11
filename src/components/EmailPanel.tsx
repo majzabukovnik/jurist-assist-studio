@@ -46,9 +46,8 @@ export function EmailPanel() {
             <p>Spoštovani gospod Horvat,</p>
 
             <p>
-
-
-
+              Na podlagi informacij iz vašega sporočila razumemo, da se vaše vprašanje nanaša na [kratka opredelitev problema]. Po naši začetni oceni se zadeva nanaša predvsem na področje [PRAVNO PODROČJE], lahko pa vključuje tudi elemente [morebitna dodatna področja].
+            </p>
             </p>
 
             {/* Legal summary */}
