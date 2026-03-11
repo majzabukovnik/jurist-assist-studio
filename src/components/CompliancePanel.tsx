@@ -20,11 +20,12 @@ import { Progress } from "@/components/ui/progress";
 import { StatusBadge } from "@/components/StatusBadge";
 import { useCompliance } from "@/hooks/useCompliance";
 
-function SectionHeader({ icon: Icon, title }: { icon: React.ElementType; title: string }) {
+function SectionHeader({ icon: Icon, title, colorClass }: { icon: React.ElementType; title: string; colorClass?: string }) {
+  const color = colorClass || "text-muted-foreground";
   return (
     <div className="flex items-center gap-2 mb-3">
-      <Icon className="h-4 w-4 text-muted-foreground" />
-      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h4>
+      <Icon className={`h-4 w-4 ${color}`} />
+      <h4 className={`text-xs font-semibold uppercase tracking-wider ${color}`}>{title}</h4>
     </div>
   );
 }
@@ -118,10 +119,10 @@ export function CompliancePanel() {
         {/* Risk indicators row */}
         <div className="grid grid-cols-3 gap-4">
           <Card className="group border p-4 shadow-sm transition-all hover:shadow-md cursor-default">
-            <SectionHeader icon={AlertTriangle} title="Konflikt interesov" />
+            <SectionHeader icon={AlertTriangle} title="Konflikt interesov" colorClass={data.konflikt_interesov_level === "red" ? "text-status-red" : data.konflikt_interesov_level === "yellow" ? "text-status-yellow" : "text-status-green"} />
             <div className="flex items-center gap-2">
               <span className={`h-3 w-3 rounded-full ${data.konflikt_interesov_level === "red" ? "bg-status-red" : data.konflikt_interesov_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
-              <span className={`text-sm ${data.konflikt_interesov_level === "red" ? "text-status-red" : data.konflikt_interesov_level === "yellow" ? "text-status-yellow" : "text-status-green"}`}>
+              <span className="text-sm text-muted-foreground">
                 <span className="group-hover:hidden">
                   {data.konflikt_interesov_level === "green" ? "Ni konflikta" : "Je konflikt"}
                 </span>
@@ -132,10 +133,10 @@ export function CompliancePanel() {
             </div>
           </Card>
           <Card className="group border p-4 shadow-sm transition-all hover:shadow-md cursor-default">
-            <SectionHeader icon={Shield} title="AML/KYC tveganje" />
+            <SectionHeader icon={Shield} title="AML/KYC tveganje" colorClass={data.aml_kyc_level === "red" ? "text-status-red" : data.aml_kyc_level === "yellow" ? "text-status-yellow" : "text-status-green"} />
             <div className="flex items-center gap-2">
               <span className={`h-3 w-3 rounded-full ${data.aml_kyc_level === "red" ? "bg-status-red" : data.aml_kyc_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
-              <span className={`text-sm ${data.aml_kyc_level === "red" ? "text-status-red" : data.aml_kyc_level === "yellow" ? "text-status-yellow" : "text-status-green"}`}>
+              <span className="text-sm text-muted-foreground">
                 <span className="group-hover:hidden">
                   {data.aml_kyc_level === "green" ? "Nizko tveganje" : data.aml_kyc_level === "yellow" ? "Srednje tveganje" : "Visoko tveganje"}
                 </span>
