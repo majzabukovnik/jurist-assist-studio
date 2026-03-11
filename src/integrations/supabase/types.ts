@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      compliance: {
+        Row: {
+          aml_kyc_label: string | null
+          aml_kyc_level: string | null
+          case_id: string | null
+          created_at: string
+          id: string
+          kompleksnost: number | null
+          kompleksnost_label: string | null
+          konflikt_interesov_label: string | null
+          konflikt_interesov_level: string | null
+          odvetniki: Json[] | null
+          panoge: string[] | null
+          povzetek_primera: string | null
+          pravna_podrocja: string[] | null
+          priporocilo: string | null
+          roki: Json[] | null
+        }
+        Insert: {
+          aml_kyc_label?: string | null
+          aml_kyc_level?: string | null
+          case_id?: string | null
+          created_at?: string
+          id?: string
+          kompleksnost?: number | null
+          kompleksnost_label?: string | null
+          konflikt_interesov_label?: string | null
+          konflikt_interesov_level?: string | null
+          odvetniki?: Json[] | null
+          panoge?: string[] | null
+          povzetek_primera?: string | null
+          pravna_podrocja?: string[] | null
+          priporocilo?: string | null
+          roki?: Json[] | null
+        }
+        Update: {
+          aml_kyc_label?: string | null
+          aml_kyc_level?: string | null
+          case_id?: string | null
+          created_at?: string
+          id?: string
+          kompleksnost?: number | null
+          kompleksnost_label?: string | null
+          konflikt_interesov_label?: string | null
+          konflikt_interesov_level?: string | null
+          odvetniki?: Json[] | null
+          panoge?: string[] | null
+          povzetek_primera?: string | null
+          pravna_podrocja?: string[] | null
+          priporocilo?: string | null
+          roki?: Json[] | null
+        }
+        Relationships: []
+      }
       summaries: {
         Row: {
           created_at: string
