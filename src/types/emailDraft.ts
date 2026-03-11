@@ -20,6 +20,7 @@ export interface EmailDraft {
   vprasanja: string[];
   pravna_ekipa: PravnaEkipaClan[];
   naslednji_koraki: string[];
+  zakljucek: string;
   podpis: string;
   generirano: string;
 }

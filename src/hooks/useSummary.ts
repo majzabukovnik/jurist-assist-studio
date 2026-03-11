@@ -13,6 +13,7 @@ const emptyDraft: EmailDraft = {
   vprasanja: [],
   pravna_ekipa: [],
   naslednji_koraki: [],
+  zakljucek: "",
   podpis: "",
   generirano: new Date().toISOString(),
 };
