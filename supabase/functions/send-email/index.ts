@@ -1,5 +1,3 @@
-import nodemailer from "npm:nodemailer@6.9.16";
-
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -21,34 +19,35 @@ Deno.serve(async (req) => {
       );
     }
 
-    const smtpUser = Deno.env.get("SMTP_USER")!;
-    const smtpPass = Deno.env.get("SMTP_PASS")!;
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    if (!resendApiKey) {
+      throw new Error("RESEND_API_KEY is not configured");
+    }
 
-    const transporter = nodemailer.createTransport({
-      host: Deno.env.get("SMTP_HOST") || "smtp-mail.outlook.com",
-      port: parseInt(Deno.env.get("SMTP_PORT") || "587"),
-      secure: false,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
+    const fromEmail = "onboarding@resend.dev";
+
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${resendApiKey}`,
+        "Content-Type": "application/json",
       },
-      tls: {
-        ciphers: "SSLv3",
-        rejectUnauthorized: false,
-      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [to],
+        subject,
+        html: body,
+      }),
     });
 
-    const recipient = toName ? `"${toName}" <${to}>` : to;
+    const data = await response.json();
 
-    await transporter.sendMail({
-      from: smtpUser,
-      to: recipient,
-      subject,
-      html: body,
-    });
+    if (!response.ok) {
+      throw new Error(`Resend API error [${response.status}]: ${JSON.stringify(data)}`);
+    }
 
     return new Response(
-      JSON.stringify({ success: true }),
+      JSON.stringify({ success: true, id: data.id }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
