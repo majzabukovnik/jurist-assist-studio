@@ -121,7 +121,7 @@ export function CompliancePanel() {
             <SectionHeader icon={AlertTriangle} title="Konflikt interesov" />
             <div className="flex items-center gap-2">
               <span className={`h-3 w-3 rounded-full ${data.konflikt_interesov_level === "red" ? "bg-status-red" : data.konflikt_interesov_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
-              <span className="text-sm text-muted-foreground">
+              <span className={`text-sm ${data.konflikt_interesov_level === "red" ? "text-status-red" : data.konflikt_interesov_level === "yellow" ? "text-status-yellow" : "text-status-green"}`}>
                 <span className="group-hover:hidden">
                   {data.konflikt_interesov_level === "green" ? "Ni konflikta" : "Je konflikt"}
                 </span>
@@ -135,7 +135,7 @@ export function CompliancePanel() {
             <SectionHeader icon={Shield} title="AML/KYC tveganje" />
             <div className="flex items-center gap-2">
               <span className={`h-3 w-3 rounded-full ${data.aml_kyc_level === "red" ? "bg-status-red" : data.aml_kyc_level === "yellow" ? "bg-status-yellow" : "bg-status-green"}`} />
-              <span className="text-sm text-muted-foreground">
+              <span className={`text-sm ${data.aml_kyc_level === "red" ? "text-status-red" : data.aml_kyc_level === "yellow" ? "text-status-yellow" : "text-status-green"}`}>
                 <span className="group-hover:hidden">
                   {data.aml_kyc_level === "green" ? "Nizko tveganje" : data.aml_kyc_level === "yellow" ? "Srednje tveganje" : "Visoko tveganje"}
                 </span>
@@ -211,7 +211,7 @@ export function CompliancePanel() {
                     <div className="w-16">
                       <Progress value={lawyer.load} className="h-1" />
                     </div>
-                    <span className={`h-2 w-2 rounded-full ${lawyer.available ? "bg-status-green" : "bg-status-red"}`} />
+                    <span className={`h-3 w-3 rounded-full ${lawyer.available ? "bg-status-green" : "bg-status-red"}`} />
                   </div>
                 </div>
               ))}
