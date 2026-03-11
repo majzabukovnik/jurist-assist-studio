@@ -146,12 +146,12 @@ export function EmailPanel() {
               </h4>
               <ul className="space-y-1.5 pl-4">
                 {vprasanja.map((v, i) => (
-                  <li key={i} className="flex items-center gap-2 group">
-                    <span className="text-primary text-[10px] shrink-0">●</span>
-                    <input
+                  <li key={i} className="flex items-start gap-2 group">
+                    <span className="text-primary text-[10px] shrink-0 mt-1.5">●</span>
+                    <AutoResizeTextarea
                       value={v}
-                      onChange={(e) => updateListItem(vprasanja, setVprasanja, i, e.target.value)}
-                      className="flex-1 border-0 bg-transparent p-0 text-sm leading-normal outline-none ring-0 transition-colors rounded px-1 -mx-1 hover:bg-muted/50 focus:bg-muted/50"
+                      onChange={(val) => updateListItem(vprasanja, setVprasanja, i, val)}
+                      className=""
                     />
                     <button
                       onClick={() => removeListItem(vprasanja, setVprasanja, i)}
@@ -207,12 +207,12 @@ export function EmailPanel() {
               </h4>
               <ul className="space-y-1.5 pl-4">
                 {naslednjiKoraki.map((step, i) => (
-                  <li key={i} className="flex items-center gap-2 group">
-                    <span className="text-primary text-[10px] shrink-0">●</span>
-                    <input
+                  <li key={i} className="flex items-start gap-2 group">
+                    <span className="text-primary text-[10px] shrink-0 mt-1.5">●</span>
+                    <AutoResizeTextarea
                       value={step}
-                      onChange={(e) => updateListItem(naslednjiKoraki, setNaslednjiKoraki, i, e.target.value)}
-                      className="flex-1 border-0 bg-transparent p-0 text-sm leading-normal outline-none ring-0 transition-colors rounded px-1 -mx-1 hover:bg-muted/50 focus:bg-muted/50"
+                      onChange={(val) => updateListItem(naslednjiKoraki, setNaslednjiKoraki, i, val)}
+                      className=""
                     />
                     <button
                       onClick={() => removeListItem(naslednjiKoraki, setNaslednjiKoraki, i)}
