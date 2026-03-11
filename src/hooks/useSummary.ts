@@ -24,7 +24,7 @@ export function useSummary() {
 
   const mapRow = (row: any): EmailDraft => ({
     od: { ime: row.od_ime ?? "", email: "onboarding@resend.dev" },
-    za: { ime: row.za_ime ?? "", email: row.za_email ?? "" },
+    za: { ime: row.za_ime ?? "", email: row.za_email ?? "heckaton.test@outlook.com" },
     zadeva: row.zadeva ?? "",
     pozdrav: row.pozdrav ?? "",
     uvod: row.uvod ?? "",
