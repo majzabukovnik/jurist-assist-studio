@@ -141,7 +141,7 @@ export function EmailPanel() {
 
             {/* Follow-up questions */}
             <div>
-              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-primary">
                 DODATNA VPRAŠANJA
               </h4>
               <ul className="space-y-1.5 pl-4">
@@ -202,12 +202,13 @@ export function EmailPanel() {
 
             {/* Next steps */}
             <div>
-              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-primary">
                 Naslednji koraki
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-1.5 pl-4">
                 {naslednjiKoraki.map((step, i) => (
-                  <li key={i} className="flex items-center gap-2 group">
+                  <li key={i} className="flex items-start gap-2 group">
+                    <span className="text-primary mt-1.5">•</span>
                     <input
                       value={step}
                       onChange={(e) => updateListItem(naslednjiKoraki, setNaslednjiKoraki, i, e.target.value)}
