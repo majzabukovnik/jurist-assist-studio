@@ -159,7 +159,7 @@ export function EmailPanel() {
           <div className="space-y-1 border-b p-4">
             <div className="flex items-center gap-2">
               <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Od:</span>
-              <span className="text-xs">heckaton.test@outlook.com</span>
+              <span className="text-xs"><heckaton.test@outlook.com></span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Za:</span>
