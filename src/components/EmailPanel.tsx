@@ -7,6 +7,8 @@ import { format } from "date-fns";
 import { sl } from "date-fns/locale";
 import { useSummary } from "@/hooks/useSummary";
 import { useEffect, useState, useCallback, useRef } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 function AutoResizeTextarea({
   value,
