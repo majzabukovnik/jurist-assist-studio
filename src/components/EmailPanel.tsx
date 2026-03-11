@@ -18,13 +18,8 @@ export function EmailPanel() {
     );
   }
 
-  if (!data) {
-    return (
-      <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
-        Ni podatkov. Čakam na nov vnos iz n8n…
-      </div>
-    );
-  }
+
+
   const generiranoDatum = format(new Date(data.generirano), "d. M. yyyy, HH:mm", { locale: sl });
 
   return (

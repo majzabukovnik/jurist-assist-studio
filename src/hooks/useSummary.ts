@@ -2,8 +2,23 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { EmailDraft } from "@/types/emailDraft";
 
+const emptyDraft: EmailDraft = {
+  od: { ime: "", email: "" },
+  za: { ime: "", email: "" },
+  zadeva: "",
+  pozdrav: "",
+  uvod: "",
+  opis_problema: "",
+  povzetek: [],
+  vprasanja: [],
+  pravna_ekipa: [],
+  naslednji_koraki: [],
+  podpis: "",
+  generirano: new Date().toISOString(),
+};
+
 export function useSummary() {
-  const [data, setData] = useState<EmailDraft | null>(null);
+  const [data, setData] = useState<EmailDraft>(emptyDraft);
   const [loading, setLoading] = useState(true);
 
   const mapRow = (row: any): EmailDraft => ({
