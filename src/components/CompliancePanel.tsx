@@ -20,11 +20,12 @@ import { Progress } from "@/components/ui/progress";
 import { StatusBadge } from "@/components/StatusBadge";
 import { useCompliance } from "@/hooks/useCompliance";
 
-function SectionHeader({ icon: Icon, title }: { icon: React.ElementType; title: string }) {
+function SectionHeader({ icon: Icon, title, colorClass }: { icon: React.ElementType; title: string; colorClass?: string }) {
+  const color = colorClass || "text-muted-foreground";
   return (
     <div className="flex items-center gap-2 mb-3">
-      <Icon className="h-4 w-4 text-muted-foreground" />
-      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h4>
+      <Icon className={`h-4 w-4 ${color}`} />
+      <h4 className={`text-xs font-semibold uppercase tracking-wider ${color}`}>{title}</h4>
     </div>
   );
 }
