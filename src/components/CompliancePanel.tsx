@@ -167,27 +167,6 @@ export function CompliancePanel() {
         </div>
 
         {/* Deadlines */}
-        {data.roki.length > 0 && (
-          <div>
-            <SectionHeader icon={Timer} title="Pravni roki" />
-            <div className="space-y-3">
-              {data.roki.map((deadline) => (
-                <div key={deadline.label} className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="flex items-center gap-3">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium">{deadline.label}</p>
-                      <p className="text-xs text-muted-foreground">{deadline.date}</p>
-                    </div>
-                  </div>
-                  <StatusBadge
-                    level={deadline.level}
-                    label={`${deadline.days} ${deadline.days === 1 ? "dan" : deadline.days === 2 ? "dneva" : deadline.days <= 4 ? "dnevi" : "dni"}`}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
         )}
 
         {/* Suggested lawyers */}
