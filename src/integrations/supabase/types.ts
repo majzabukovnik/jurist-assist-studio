@@ -71,6 +71,47 @@ export type Database = {
         }
         Relationships: []
       }
+      email_queue: {
+        Row: {
+          created_at: string
+          id: string
+          sent_at: string | null
+          status: string
+          subject: string
+          summary_id: string | null
+          to_email: string
+          to_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          sent_at?: string | null
+          status?: string
+          subject: string
+          summary_id?: string | null
+          to_email: string
+          to_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          sent_at?: string | null
+          status?: string
+          subject?: string
+          summary_id?: string | null
+          to_email?: string
+          to_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_queue_summary_id_fkey"
+            columns: ["summary_id"]
+            isOneToOne: false
+            referencedRelation: "summaries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       summaries: {
         Row: {
           created_at: string
