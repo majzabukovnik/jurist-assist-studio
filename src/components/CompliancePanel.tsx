@@ -34,7 +34,7 @@ export function CompliancePanel() {
       <div className="flex items-center justify-between border-b px-6 py-4">
         <div className="flex items-center gap-2">
           <Shield className="h-5 w-5 text-primary" />
-          <h2 className="text-lg font-semibold tracking-tight">Compliance Dashboard</h2>
+          <h2 className="text-lg font-semibold tracking-tight">Pregled skladnosti</h2>
         </div>
         <span className="text-xs font-mono text-muted-foreground">CASE-2026-0847</span>
       </div>
@@ -45,8 +45,8 @@ export function CompliancePanel() {
         <Card className="border p-4 shadow-sm">
           <SectionHeader icon={Briefcase} title="Povzetek primera" />
           <p className="text-sm leading-relaxed">
-            Stranka Marko Horvat prosi za pravni pregled pogodbe o zaposlitvi pri podjetju TechCorp d.o.o.
-            Pogodba vsebuje sporne klavzule glede konkurenčne prepovedi in delovnega časa.
+            Stranka Marko Horvat prosi za pravni pregled pogodbe o zaposlitvi pri podjetju TechCorp d.o.o. Pogodba
+            vsebuje sporne klavzule glede konkurenčne prepovedi in delovnega časa.
           </p>
         </Card>
 
@@ -66,7 +66,10 @@ export function CompliancePanel() {
             <SectionHeader icon={Building2} title="Klasifikacija panoge" />
             <div className="flex flex-wrap gap-1.5">
               {["Tehnologija", "IT storitve"].map((tag) => (
-                <span key={tag} className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
+                <span
+                  key={tag}
+                  className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
+                >
                   {tag}
                 </span>
               ))}
@@ -133,7 +136,12 @@ export function CompliancePanel() {
             ].map((lawyer) => (
               <div key={lawyer.name} className="flex items-center gap-3 rounded-lg border p-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                  {lawyer.name.split(" ").map(n => n.replace(/^(dr\.|mag\.)/, "")).filter(Boolean).map(n => n[0]).join("")}
+                  {lawyer.name
+                    .split(" ")
+                    .map((n) => n.replace(/^(dr\.|mag\.)/, ""))
+                    .filter(Boolean)
+                    .map((n) => n[0])
+                    .join("")}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium">{lawyer.name}</p>
@@ -160,7 +168,10 @@ export function CompliancePanel() {
               <CheckCircle2 className="h-4 w-4" />
               Sprejmi
             </Button>
-            <Button variant="outline" className="flex-1 gap-2 border-status-yellow text-status-yellow hover:bg-status-yellow-bg">
+            <Button
+              variant="outline"
+              className="flex-1 gap-2 border-status-yellow text-status-yellow hover:bg-status-yellow-bg"
+            >
               <Eye className="h-4 w-4" />
               Preglej
             </Button>
