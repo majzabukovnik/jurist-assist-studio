@@ -14,28 +14,28 @@ const sampleData: EmailDraft = {
   pozdrav: "Spoštovani gospod Horvat,",
   uvod: "zahvaljujemo se Vam za zaupanje in posredovano dokumentacijo. Po pregledu Vaše pogodbe o zaposlitvi Vam v nadaljevanju podajamo preliminarno pravno mnenje.",
   opis_problema:
-    "Na podlagi informacij iz vašega sporočila razumemo, da se vaše vprašanje nanaša na [kratka opredelitev problema]. Po naši začetni oceni se zadeva nanaša predvsem na področje [PRAVNO PODROČJE], lahko pa vključuje tudi elemente [morebitna dodatna področja].",
+  "Na podlagi informacij iz vašega sporočila razumemo, da se vaše vprašanje nanaša na [kratka opredelitev problema]. Po naši začetni oceni se zadeva nanaša predvsem na področje [PRAVNO PODROČJE], lahko pa vključuje tudi elemente [morebitna dodatna področja].",
   povzetek: [
-    "ključna dejanska okoliščina",
-    "ključna pravna ali poslovna situacija",
-    "morebitni časovni ali poslovni kontekst",
-  ],
+  "ključna dejanska okoliščina",
+  "ključna pravna ali poslovna situacija",
+  "morebitni časovni ali poslovni kontekst"],
+
   vprasanja: [
-    "Ali ste že podpisali katerikoli dokument pri delodajalcu?",
-    "Ali obstaja možnost pogajanj o pogojih pogodbe?",
-    "Ali ste bili pri prejšnjem delodajalcu vezani s konkurenčno klavzulo?",
-  ],
+  "Ali ste že podpisali katerikoli dokument pri delodajalcu?",
+  "Ali obstaja možnost pogajanj o pogojih pogodbe?",
+  "Ali ste bili pri prejšnjem delodajalcu vezani s konkurenčno klavzulo?"],
+
   pravna_ekipa: [
-    { ime: "dr. Ana Novak", podrocje: "Delovno pravo", dostopen: true },
-    { ime: "mag. Peter Krajnc", podrocje: "Gospodarsko pravo", dostopen: true },
-  ],
+  { ime: "dr. Ana Novak", podrocje: "Delovno pravo", dostopen: true },
+  { ime: "mag. Peter Krajnc", podrocje: "Gospodarsko pravo", dostopen: true }],
+
   naslednji_koraki: [
-    "Če vam ustreza, lahko v naslednjih dneh organiziramo tudi kratek uvodni klic, na katerem bi lahko podrobneje obravnavali vašo situacijo. Ali vam bi ustrezalo [IZBERI DATUM IN URO]?",
-    "Posredujte odgovore na zgornja vprašanja.",
-    "Priprava pogajalske strategije",
-  ],
+  "Če vam ustreza, lahko v naslednjih dneh organiziramo tudi kratek uvodni klic, na katerem bi lahko podrobneje obravnavali vašo situacijo. Ali vam bi ustrezalo [IZBERI DATUM IN URO]?",
+  "Posredujte odgovore na zgornja vprašanja.",
+  "Priprava pogajalske strategije"],
+
   podpis: "Odvetniška pisarna Novak d.o.o.",
-  generirano: "2026-03-11T14:32:00Z",
+  generirano: "2026-03-11T14:32:00Z"
 };
 
 interface EmailPanelProps {
@@ -103,14 +103,14 @@ export function EmailPanel({ data = sampleData }: EmailPanelProps) {
                 DODATNA VPRAŠANJA
               </h4>
               <ol className="space-y-1.5 pl-4">
-                {data.vprasanja.map((vprasanje, i) => (
-                  <li key={i} className="flex items-start gap-2">
+                {data.vprasanja.map((vprasanje, i) =>
+                <li key={i} className="flex items-start gap-2">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
                       {i + 1}
                     </span>
                     <span>{vprasanje}</span>
                   </li>
-                ))}
+                )}
               </ol>
             </div>
 
@@ -122,8 +122,8 @@ export function EmailPanel({ data = sampleData }: EmailPanelProps) {
                 Predlagana pravna ekipa
               </h4>
               <div className="grid grid-cols-2 gap-3">
-                {data.pravna_ekipa.map((lawyer) => (
-                  <div key={lawyer.ime} className="flex items-center gap-3 rounded-lg border p-3">
+                {data.pravna_ekipa.map((lawyer) =>
+                <div key={lawyer.ime} className="flex items-center gap-3 rounded-lg border p-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
                       <User className="h-4 w-4 text-primary" />
                     </div>
@@ -133,7 +133,7 @@ export function EmailPanel({ data = sampleData }: EmailPanelProps) {
                     </div>
                     {lawyer.dostopen && <span className="ml-auto h-2 w-2 rounded-full bg-status-green" />}
                   </div>
-                ))}
+                )}
               </div>
             </div>
 
@@ -145,16 +145,20 @@ export function EmailPanel({ data = sampleData }: EmailPanelProps) {
                 Naslednji koraki
               </h4>
               <ul className="space-y-2">
-                {data.naslednji_koraki.map((step, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm">
+                {data.naslednji_koraki.map((step, i) =>
+                <li key={i} className="flex items-center gap-2 text-sm">
                     {step}
                   </li>
-                ))}
+                )}
               </ul>
             </div>
 
-            <p className="mt-4">
-              S spoštovanjem,
+            <p className="mt-4">V kolikor imate vmes še kakšno vprašanje ali dodatne informacije, nam jih lahko kadarkoli posredujete.
+
+
+S spoštovanjem,
+Odvetniška pisarna Novak d.o.o.
+
               <br />
               <span className="font-medium">{data.podpis}</span>
             </p>
@@ -174,6 +178,4 @@ export function EmailPanel({ data = sampleData }: EmailPanelProps) {
         </Button>
         <span className="ml-auto text-xs text-muted-foreground">AI generirano · n8n pipeline</span>
       </div>
-    </div>
-  );
-}
+    </div>);}
