@@ -26,18 +26,18 @@ export function EmailPanel() {
       <div className="flex-1 overflow-y-auto p-6">
         <Card className="border shadow-sm">
           {/* Email header fields */}
-          <div className="space-y-1.4 border-b p-5">
-            <div className="flex items-center gap-3">
-              <span className="w-16 text-xs font-medium text-muted-foreground uppercase tracking-wider">Od:</span>
-              <span className="text-sm">Odvetniška pisarna Novak d.o.o. &lt;info@novak-law.si&gt;</span>
+          <div className="space-y-1 border-b p-4">
+            <div className="flex items-center gap-2">
+              <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Od:</span>
+              <span className="text-xs">Odvetniška pisarna Novak d.o.o. &lt;info@novak-law.si&gt;</span>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="w-16 text-xs font-medium text-muted-foreground uppercase tracking-wider">Za:</span>
-              <span className="text-sm">Marko Horvat &lt;marko.horvat@email.si&gt;</span>
+            <div className="flex items-center gap-2">
+              <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Za:</span>
+              <span className="text-xs">Marko Horvat &lt;marko.horvat@email.si&gt;</span>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="w-16 text-xs font-medium text-muted-foreground uppercase tracking-wider">Zadeva:</span>
-              <span className="text-sm font-medium">Re: Pregled pogodbe o zaposlitvi — Preliminarno mnenje</span>
+            <div className="flex items-center gap-2">
+              <span className="w-14 text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Zadeva:</span>
+              <span className="text-xs font-medium">Re: Pregled pogodbe o zaposlitvi — Preliminarno mnenje</span>
             </div>
           </div>
 
