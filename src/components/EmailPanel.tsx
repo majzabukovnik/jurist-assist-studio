@@ -148,10 +148,10 @@ export function EmailPanel() {
                 {vprasanja.map((v, i) => (
                   <li key={i} className="flex items-center gap-2 group">
                     <span className="text-primary text-[10px] shrink-0">●</span>
-                    <input
+                    <AutoResizeTextarea
                       value={v}
-                      onChange={(e) => updateListItem(vprasanja, setVprasanja, i, e.target.value)}
-                      className="flex-1 border-0 bg-transparent p-0 text-sm leading-normal outline-none ring-0 transition-colors rounded px-1 -mx-1 hover:bg-muted/50 focus:bg-muted/50"
+                      onChange={(val) => updateListItem(vprasanja, setVprasanja, i, val)}
+                      className=""
                     />
                     <button
                       onClick={() => removeListItem(vprasanja, setVprasanja, i)}
