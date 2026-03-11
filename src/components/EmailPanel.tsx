@@ -234,7 +234,7 @@ export function EmailPanel() {
               </Button>
             </div>
 
-            {zakljucek !== undefined && (
+            {zakljucek && (
               <AutoResizeTextarea value={zakljucek} onChange={setZakljucek} />
             )}
 
