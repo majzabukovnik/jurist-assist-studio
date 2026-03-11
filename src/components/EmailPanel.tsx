@@ -73,7 +73,7 @@ export function EmailPanel() {
               <ul className="space-y-1.5 pl-4">
                 {data.vprasanja.map((vprasanje, i) =>
                 <li key={i} className="flex items-start gap-2">
-                    <span className="text-muted-foreground">•</span>
+                    <span className="text-primary">•</span>
                     <span>{vprasanje}</span>
                   </li>
                 )}
