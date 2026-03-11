@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Shield,
   Scale,
@@ -27,69 +26,6 @@ function SectionHeader({ icon: Icon, title }: { icon: React.ElementType; title: 
       <Icon className="h-4 w-4 text-muted-foreground" />
       <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h4>
     </div>
-  );
-}
-
-function RiskCard({
-  icon: Icon,
-  title,
-  level,
-  label,
-}: {
-  icon: React.ElementType;
-  title: string;
-  level: "green" | "yellow" | "red";
-  label: string;
-}) {
-  const [hovered, setHovered] = useState(false);
-
-  const bgMap = {
-    green: "bg-status-green",
-    yellow: "bg-status-yellow",
-    red: "bg-status-red",
-  };
-
-  const borderMap = {
-    green: "border-status-green/30",
-    yellow: "border-status-yellow/30",
-    red: "border-status-red/30",
-  };
-
-  const bgLightMap = {
-    green: "bg-status-green-bg",
-    yellow: "bg-status-yellow-bg",
-    red: "bg-status-red-bg",
-  };
-
-  if (!label) {
-    return (
-      <Card className="border p-4 shadow-sm">
-        <SectionHeader icon={Icon} title={title} />
-        <span className="text-xs text-muted-foreground">—</span>
-      </Card>
-    );
-  }
-
-  return (
-    <Card
-      className={`border shadow-sm transition-all duration-200 cursor-default overflow-hidden ${borderMap[level]} ${
-        hovered ? "p-4" : `p-3 ${bgLightMap[level]}`
-      }`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {hovered ? (
-        <>
-          <SectionHeader icon={Icon} title={title} />
-          <StatusBadge level={level} label={label} />
-        </>
-      ) : (
-        <div className="flex items-center gap-2">
-          <span className={`h-2.5 w-2.5 rounded-full shrink-0 ${bgMap[level]}`} />
-          <span className="text-xs font-medium truncate">{title}</span>
-        </div>
-      )}
-    </Card>
   );
 }
 
@@ -181,18 +117,22 @@ export function CompliancePanel() {
 
         {/* Risk indicators row */}
         <div className="grid grid-cols-3 gap-4">
-          <RiskCard
-            icon={AlertTriangle}
-            title="Konflikt interesov"
-            level={data.konflikt_interesov_level}
-            label={data.konflikt_interesov_label}
-          />
-          <RiskCard
-            icon={Shield}
-            title="AML/KYC tveganje"
-            level={data.aml_kyc_level}
-            label={data.aml_kyc_label}
-          />
+          <Card className="border p-4 shadow-sm">
+            <SectionHeader icon={AlertTriangle} title="Konflikt interesov" />
+            {data.konflikt_interesov_label ? (
+              <StatusBadge level={data.konflikt_interesov_level} label={data.konflikt_interesov_label} />
+            ) : (
+              <span className="text-xs text-muted-foreground">—</span>
+            )}
+          </Card>
+          <Card className="border p-4 shadow-sm">
+            <SectionHeader icon={Shield} title="AML/KYC tveganje" />
+            {data.aml_kyc_label ? (
+              <StatusBadge level={data.aml_kyc_level} label={data.aml_kyc_label} />
+            ) : (
+              <span className="text-xs text-muted-foreground">—</span>
+            )}
+          </Card>
           <Card className="border p-4 shadow-sm">
             <SectionHeader icon={BarChart3} title="Kompleksnost" />
             <div className="space-y-2">
