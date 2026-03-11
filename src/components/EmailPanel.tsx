@@ -291,9 +291,9 @@ export function EmailPanel() {
 
       {/* Footer actions */}
       <div className="flex items-center gap-2 border-t px-6 py-3">
-        <Button size="sm" className="gap-1.5">
-          <Send className="h-3.5 w-3.5" />
-          Pošlji
+        <Button size="sm" className="gap-1.5" onClick={handleSend} disabled={sending}>
+          {sending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
+          {sending ? "Pošiljam..." : "Pošlji"}
         </Button>
         <Button size="sm" variant="outline" className="gap-1.5">
           <Paperclip className="h-3.5 w-3.5" />
