@@ -13,6 +13,8 @@ import {
   Timer,
   Loader2,
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -226,18 +228,65 @@ export function CompliancePanel() {
         <Card className="border p-4 shadow-sm">
           <SectionHeader icon={CheckCircle2} title="Priporočilo" />
           <div className="flex gap-3">
-            <Button className="flex-1 gap-2 bg-status-green hover:bg-status-green/90 text-primary-foreground">
+            <Button
+              className="flex-1 gap-2 bg-status-green hover:bg-status-green/90 text-primary-foreground"
+              onClick={async () => {
+                const { data: latest } = await supabase
+                  .from("email_queue")
+                  .select("id")
+                  .in("status", ["sent", "pending", "in_progress"])
+                  .order("created_at", { ascending: false })
+                  .limit(1);
+                if (latest && latest[0]) {
+                  await supabase.from("email_queue").update({ status: "accepted" }).eq("id", latest[0].id);
+                  toast.success("Email sprejet");
+                } else {
+                  toast.info("Ni mailov za sprejem");
+                }
+              }}
+            >
               <CheckCircle2 className="h-4 w-4" />
               Sprejmi
             </Button>
             <Button
               variant="outline"
               className="flex-1 gap-2 border-status-yellow text-status-yellow hover:bg-status-yellow-bg"
+              onClick={async () => {
+                const { data: latest } = await supabase
+                  .from("email_queue")
+                  .select("id")
+                  .in("status", ["sent", "accepted", "rejected"])
+                  .order("created_at", { ascending: false })
+                  .limit(1);
+                if (latest && latest[0]) {
+                  await supabase.from("email_queue").update({ status: "pending" }).eq("id", latest[0].id);
+                  toast.success("Email vrnjen v čakalno vrsto");
+                } else {
+                  toast.info("Ni mailov za pregled");
+                }
+              }}
             >
               <Eye className="h-4 w-4" />
               Preglej
             </Button>
-            <Button variant="outline" className="flex-1 gap-2 border-status-red text-status-red hover:bg-status-red-bg">
+            <Button
+              variant="outline"
+              className="flex-1 gap-2 border-status-red text-status-red hover:bg-status-red-bg"
+              onClick={async () => {
+                const { data: latest } = await supabase
+                  .from("email_queue")
+                  .select("id")
+                  .in("status", ["sent", "pending", "in_progress"])
+                  .order("created_at", { ascending: false })
+                  .limit(1);
+                if (latest && latest[0]) {
+                  await supabase.from("email_queue").update({ status: "rejected" }).eq("id", latest[0].id);
+                  toast.success("Email zavržen");
+                } else {
+                  toast.info("Ni mailov za zavrnitev");
+                }
+              }}
+            >
               <XCircle className="h-4 w-4" />
               Zavrni
             </Button>
