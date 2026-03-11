@@ -147,11 +147,11 @@ export function EmailPanel() {
               <ul className="space-y-1.5 pl-4">
                 {vprasanja.map((v, i) => (
                   <li key={i} className="flex items-center gap-2 group">
-                    <span className="text-primary leading-none text-xs">●</span>
+                    <span className="text-primary text-[8px] shrink-0">●</span>
                     <input
                       value={v}
                       onChange={(e) => updateListItem(vprasanja, setVprasanja, i, e.target.value)}
-                      className="flex-1 border-0 bg-transparent p-0 text-sm leading-relaxed outline-none ring-0 transition-colors rounded px-1 -mx-1 hover:bg-muted/50 focus:bg-muted/50"
+                      className="flex-1 border-0 bg-transparent p-0 text-sm leading-normal outline-none ring-0 transition-colors rounded px-1 -mx-1 hover:bg-muted/50 focus:bg-muted/50"
                     />
                     <button
                       onClick={() => removeListItem(vprasanja, setVprasanja, i)}
@@ -208,11 +208,11 @@ export function EmailPanel() {
               <ul className="space-y-1.5 pl-4">
                 {naslednjiKoraki.map((step, i) => (
                   <li key={i} className="flex items-center gap-2 group">
-                    <span className="text-primary leading-none text-xs">●</span>
+                    <span className="text-primary text-[8px] shrink-0">●</span>
                     <input
                       value={step}
                       onChange={(e) => updateListItem(naslednjiKoraki, setNaslednjiKoraki, i, e.target.value)}
-                      className="flex-1 border-0 bg-transparent p-0 text-sm leading-relaxed outline-none ring-0 transition-colors rounded px-1 -mx-1 hover:bg-muted/50 focus:bg-muted/50"
+                      className="flex-1 border-0 bg-transparent p-0 text-sm leading-normal outline-none ring-0 transition-colors rounded px-1 -mx-1 hover:bg-muted/50 focus:bg-muted/50"
                     />
                     <button
                       onClick={() => removeListItem(naslednjiKoraki, setNaslednjiKoraki, i)}
