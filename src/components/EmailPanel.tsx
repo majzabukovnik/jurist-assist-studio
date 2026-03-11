@@ -146,7 +146,7 @@ export function EmailPanel() {
               </h4>
               <ul className="space-y-1.5 pl-4">
                 {vprasanja.map((v, i) => (
-                  <li key={i} className="flex items-center gap-2 group">
+                  <li key={i} className="flex items-start gap-2 group">
                     <span className="text-primary text-[10px] shrink-0">●</span>
                     <AutoResizeTextarea
                       value={v}
