@@ -208,7 +208,7 @@ export function EmailPanel() {
               <ul className="space-y-1.5 pl-4">
                 {naslednjiKoraki.map((step, i) => (
                   <li key={i} className="flex items-center gap-2 group">
-                    <span className="text-primary text-[8px] shrink-0">●</span>
+                    <span className="text-primary text-[10px] shrink-0">●</span>
                     <input
                       value={step}
                       onChange={(e) => updateListItem(naslednjiKoraki, setNaslednjiKoraki, i, e.target.value)}
