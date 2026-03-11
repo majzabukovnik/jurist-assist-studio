@@ -65,15 +65,15 @@ export function EmailPanel() {
               </h4>
               <p className="text-sm whitespace-pre-line">
                 {
-                  "• [ključna dejanska okoliščina]\n• [ključna pravna ali poslovna situacija]\n• [morebitni časovni ali poslovni kontekst]"
+                "• [ključna dejanska okoliščina]\n• [ključna pravna ali poslovna situacija]\n• [morebitni časovni ali poslovni kontekst]"
                 }
               </p>
             </Card>
 
             {/* Follow-up questions */}
             <div>
-              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Dodatna vprašanja za stranko
+              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">DODATNA VPRAŠANJA
+
               </h4>
               <ol className="space-y-1.4 pl-4">
                 <li className="flex items-start gap-2">
@@ -106,10 +106,10 @@ export function EmailPanel() {
               </h4>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { name: "dr. Ana Novak", role: "Delovno pravo", available: true },
-                  { name: "mag. Peter Krajnc", role: "Gospodarsko pravo", available: true },
-                ].map((lawyer) => (
-                  <div key={lawyer.name} className="flex items-center gap-3 rounded-lg border p-3">
+                { name: "dr. Ana Novak", role: "Delovno pravo", available: true },
+                { name: "mag. Peter Krajnc", role: "Gospodarsko pravo", available: true }].
+                map((lawyer) =>
+                <div key={lawyer.name} className="flex items-center gap-3 rounded-lg border p-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
                       <User className="h-4 w-4 text-primary" />
                     </div>
@@ -119,7 +119,7 @@ export function EmailPanel() {
                     </div>
                     {lawyer.available && <span className="ml-auto h-2 w-2 rounded-full bg-status-green" />}
                   </div>
-                ))}
+                )}
               </div>
             </div>
 
@@ -132,15 +132,15 @@ export function EmailPanel() {
               </h4>
               <ul className="space-y-2">
                 {[
-                  "Posredujte odgovore na zgornja vprašanja",
-                  "Sestanek za pregled pogodbe — predlog: 14. 3. 2026",
-                  "Priprava pogajalske strategije",
-                ].map((step, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm">
+                "Posredujte odgovore na zgornja vprašanja",
+                "Sestanek za pregled pogodbe — predlog: 14. 3. 2026",
+                "Priprava pogajalske strategije"].
+                map((step, i) =>
+                <li key={i} className="flex items-center gap-2 text-sm">
                     <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                     {step}
                   </li>
-                ))}
+                )}
               </ul>
             </div>
 
@@ -165,6 +165,6 @@ export function EmailPanel() {
         </Button>
         <span className="ml-auto text-xs text-muted-foreground">AI generirano · n8n pipeline</span>
       </div>
-    </div>
-  );
+    </div>);
+
 }
