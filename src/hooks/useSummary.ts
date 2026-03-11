@@ -77,12 +77,19 @@ export function useSummary() {
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "summaries" },
         async (payload) => {
-          // Move current email to pending queue before switching
-          await moveToPending(currentRef.current);
-
           const mapped = mapRow(payload.new);
-          setData(mapped);
-          currentRef.current = mapped;
+
+          // Put the NEW incoming email into the pending queue (not the current one)
+          if (mapped.za.email && mapped.zadeva) {
+            await supabase.from("email_queue").insert({
+              to_name: mapped.za.ime,
+              to_email: mapped.za.email,
+              subject: mapped.zadeva,
+              status: "pending",
+            });
+          }
+
+          // Keep showing the current email in the editor — don't switch
         }
       )
       .subscribe();
