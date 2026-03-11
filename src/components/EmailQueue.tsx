@@ -1,18 +1,28 @@
-import { Mail, Clock, CheckCircle2, XCircle, Loader2, Inbox } from "lucide-react";
+import { Mail, Clock, CheckCircle2, XCircle, Loader2, Inbox, Trash2, Archive, RotateCcw } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { useEmailQueue, type EmailQueueItem } from "@/hooks/useEmailQueue";
+import { Button } from "@/components/ui/button";
+import { useEmailQueue, type EmailQueueItem, type EmailQueueStatus } from "@/hooks/useEmailQueue";
 import { format } from "date-fns";
 import { sl } from "date-fns/locale";
+import { toast } from "sonner";
 
-const statusConfig = {
+const statusConfig: Record<EmailQueueStatus, { label: string; icon: React.ElementType; className: string }> = {
   pending: { label: "Čaka", icon: Clock, className: "bg-status-yellow-bg text-status-yellow" },
   in_progress: { label: "V obdelavi", icon: Loader2, className: "bg-status-yellow-bg text-status-yellow" },
-  sent: { label: "Poslano", icon: CheckCircle2, className: "bg-status-green-bg text-status-green" },
+  sent: { label: "Poslano", icon: Mail, className: "bg-primary/10 text-primary" },
   failed: { label: "Napaka", icon: XCircle, className: "bg-status-red-bg text-status-red" },
+  accepted: { label: "Sprejeto", icon: CheckCircle2, className: "bg-status-green-bg text-status-green" },
+  rejected: { label: "Zavrženo", icon: Trash2, className: "bg-status-red-bg text-status-red" },
 };
 
-function QueueItem({ item }: { item: EmailQueueItem }) {
+function QueueItem({
+  item,
+  actions,
+}: {
+  item: EmailQueueItem;
+  actions?: React.ReactNode;
+}) {
   const config = statusConfig[item.status];
   const StatusIcon = config.icon;
   const time = format(new Date(item.created_at), "d. MMM, HH:mm", { locale: sl });
@@ -27,12 +37,15 @@ function QueueItem({ item }: { item: EmailQueueItem }) {
         <p className="truncate text-xs text-muted-foreground">
           {item.to_name ? `${item.to_name} · ` : ""}{item.to_email}
         </p>
-        <p className="mt-1 text-[10px] text-muted-foreground">{time}</p>
+        <div className="mt-1 flex items-center gap-2">
+          <p className="text-[10px] text-muted-foreground">{time}</p>
+          <Badge variant="outline" className={`gap-1 border-0 text-[10px] ${config.className}`}>
+            <StatusIcon className={`h-3 w-3 ${item.status === "in_progress" ? "animate-spin" : ""}`} />
+            {config.label}
+          </Badge>
+        </div>
+        {actions && <div className="mt-2 flex gap-1.5">{actions}</div>}
       </div>
-      <Badge variant="outline" className={`shrink-0 gap-1 border-0 text-[10px] ${config.className}`}>
-        <StatusIcon className={`h-3 w-3 ${item.status === "in_progress" ? "animate-spin" : ""}`} />
-        {config.label}
-      </Badge>
     </div>
   );
 }
@@ -46,8 +59,28 @@ function EmptyState({ message }: { message: string }) {
   );
 }
 
+function TabCount({ count, className }: { count: number; className: string }) {
+  if (count === 0) return null;
+  return (
+    <span className={`ml-1 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-[10px] font-semibold ${className}`}>
+      {count}
+    </span>
+  );
+}
+
+const tabTriggerClass = "gap-1.5 rounded-none border-b-2 border-transparent px-3 pb-2 pt-1.5 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none";
+
 export function EmailQueue() {
-  const { pending, sent, failed, loading } = useEmailQueue();
+  const { pending, sent, accepted, rejected, loading, updateStatus } = useEmailQueue();
+
+  const handleAction = async (id: string, status: EmailQueueStatus, label: string) => {
+    try {
+      await updateStatus(id, status);
+      toast.success(label);
+    } catch {
+      toast.error("Napaka pri posodabljanju statusa");
+    }
+  };
 
   if (loading) {
     return (
@@ -67,66 +100,154 @@ export function EmailQueue() {
       <Tabs defaultValue="queue" className="flex flex-1 flex-col overflow-hidden">
         <div className="border-b px-6">
           <TabsList className="h-9 bg-transparent p-0">
-            <TabsTrigger value="queue" className="gap-1.5 rounded-none border-b-2 border-transparent px-3 pb-2 pt-1.5 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none">
+            <TabsTrigger value="queue" className={tabTriggerClass}>
               Čakalna vrsta
-              {pending.length > 0 && (
-                <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-status-yellow-bg text-[10px] font-semibold text-status-yellow">
-                  {pending.length}
-                </span>
-              )}
+              <TabCount count={pending.length} className="bg-status-yellow-bg text-status-yellow" />
             </TabsTrigger>
-            <TabsTrigger value="sent" className="gap-1.5 rounded-none border-b-2 border-transparent px-3 pb-2 pt-1.5 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none">
+            <TabsTrigger value="sent" className={tabTriggerClass}>
               Poslani
-              {sent.length > 0 && (
-                <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-status-green-bg text-[10px] font-semibold text-status-green">
-                  {sent.length}
-                </span>
-              )}
+              <TabCount count={sent.length} className="bg-primary/10 text-primary" />
             </TabsTrigger>
-            {failed.length > 0 && (
-              <TabsTrigger value="failed" className="gap-1.5 rounded-none border-b-2 border-transparent px-3 pb-2 pt-1.5 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none">
-                Napake
-                <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-status-red-bg text-[10px] font-semibold text-status-red">
-                  {failed.length}
-                </span>
-              </TabsTrigger>
-            )}
+            <TabsTrigger value="accepted" className={tabTriggerClass}>
+              <CheckCircle2 className="h-3.5 w-3.5" />
+              Sprejeti
+              <TabCount count={accepted.length} className="bg-status-green-bg text-status-green" />
+            </TabsTrigger>
+            <TabsTrigger value="rejected" className={tabTriggerClass}>
+              <Trash2 className="h-3.5 w-3.5" />
+              Koš
+              <TabCount count={rejected.length} className="bg-status-red-bg text-status-red" />
+            </TabsTrigger>
           </TabsList>
         </div>
 
+        {/* Čakalna vrsta */}
         <TabsContent value="queue" className="mt-0 flex-1 overflow-y-auto p-4">
           {pending.length === 0 ? (
             <EmptyState message="Ni mailov v čakalni vrsti" />
           ) : (
             <div className="space-y-2">
               {pending.map((item) => (
-                <QueueItem key={item.id} item={item} />
+                <QueueItem
+                  key={item.id}
+                  item={item}
+                  actions={
+                    <>
+                      <Button
+                        size="sm"
+                        className="h-7 gap-1 bg-status-green text-xs hover:bg-status-green/90 text-primary-foreground"
+                        onClick={() => handleAction(item.id, "accepted", "Email sprejet")}
+                      >
+                        <CheckCircle2 className="h-3 w-3" />
+                        Sprejmi
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-7 gap-1 border-status-red text-xs text-status-red hover:bg-status-red-bg"
+                        onClick={() => handleAction(item.id, "rejected", "Email zavržen")}
+                      >
+                        <Trash2 className="h-3 w-3" />
+                        Zavrni
+                      </Button>
+                    </>
+                  }
+                />
               ))}
             </div>
           )}
         </TabsContent>
 
+        {/* Poslani */}
         <TabsContent value="sent" className="mt-0 flex-1 overflow-y-auto p-4">
           {sent.length === 0 ? (
             <EmptyState message="Še ni poslanih mailov" />
           ) : (
             <div className="space-y-2">
               {sent.map((item) => (
-                <QueueItem key={item.id} item={item} />
+                <QueueItem
+                  key={item.id}
+                  item={item}
+                  actions={
+                    <>
+                      <Button
+                        size="sm"
+                        className="h-7 gap-1 bg-status-green text-xs hover:bg-status-green/90 text-primary-foreground"
+                        onClick={() => handleAction(item.id, "accepted", "Email sprejet")}
+                      >
+                        <CheckCircle2 className="h-3 w-3" />
+                        Sprejmi
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-7 gap-1 border-status-red text-xs text-status-red hover:bg-status-red-bg"
+                        onClick={() => handleAction(item.id, "rejected", "Email zavržen")}
+                      >
+                        <Trash2 className="h-3 w-3" />
+                        Zavrni
+                      </Button>
+                    </>
+                  }
+                />
               ))}
             </div>
           )}
         </TabsContent>
 
-        {failed.length > 0 && (
-          <TabsContent value="failed" className="mt-0 flex-1 overflow-y-auto p-4">
+        {/* Sprejeti */}
+        <TabsContent value="accepted" className="mt-0 flex-1 overflow-y-auto p-4">
+          {accepted.length === 0 ? (
+            <EmptyState message="Ni sprejetih mailov" />
+          ) : (
             <div className="space-y-2">
-              {failed.map((item) => (
-                <QueueItem key={item.id} item={item} />
+              {accepted.map((item) => (
+                <QueueItem
+                  key={item.id}
+                  item={item}
+                  actions={
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="h-7 gap-1 text-xs text-muted-foreground"
+                      onClick={() => handleAction(item.id, "sent", "Vrnjeno med poslane")}
+                    >
+                      <RotateCcw className="h-3 w-3" />
+                      Vrni nazaj
+                    </Button>
+                  }
+                />
               ))}
             </div>
-          </TabsContent>
-        )}
+          )}
+        </TabsContent>
+
+        {/* Koš */}
+        <TabsContent value="rejected" className="mt-0 flex-1 overflow-y-auto p-4">
+          {rejected.length === 0 ? (
+            <EmptyState message="Koš je prazen" />
+          ) : (
+            <div className="space-y-2">
+              {rejected.map((item) => (
+                <QueueItem
+                  key={item.id}
+                  item={item}
+                  actions={
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="h-7 gap-1 text-xs text-muted-foreground"
+                      onClick={() => handleAction(item.id, "sent", "Obnovljeno med poslane")}
+                    >
+                      <RotateCcw className="h-3 w-3" />
+                      Obnovi
+                    </Button>
+                  }
+                />
+              ))}
+            </div>
+          )}
+        </TabsContent>
       </Tabs>
     </div>
   );
