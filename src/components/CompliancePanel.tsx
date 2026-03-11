@@ -118,22 +118,18 @@ export function CompliancePanel() {
 
         {/* Risk indicators row */}
         <div className="grid grid-cols-3 gap-4">
-          <Card className="border p-4 shadow-sm">
-            <SectionHeader icon={AlertTriangle} title="Konflikt interesov" />
-            {data.konflikt_interesov_label ? (
-              <StatusBadge level={data.konflikt_interesov_level} label={data.konflikt_interesov_label} />
-            ) : (
-              <span className="text-xs text-muted-foreground">—</span>
-            )}
-          </Card>
-          <Card className="border p-4 shadow-sm">
-            <SectionHeader icon={Shield} title="AML/KYC tveganje" />
-            {data.aml_kyc_label ? (
-              <StatusBadge level={data.aml_kyc_level} label={data.aml_kyc_label} />
-            ) : (
-              <span className="text-xs text-muted-foreground">—</span>
-            )}
-          </Card>
+          <RiskCard
+            icon={AlertTriangle}
+            title="Konflikt interesov"
+            level={data.konflikt_interesov_level}
+            label={data.konflikt_interesov_label}
+          />
+          <RiskCard
+            icon={Shield}
+            title="AML/KYC tveganje"
+            level={data.aml_kyc_level}
+            label={data.aml_kyc_label}
+          />
           <Card className="border p-4 shadow-sm">
             <SectionHeader icon={BarChart3} title="Kompleksnost" />
             <div className="space-y-2">
