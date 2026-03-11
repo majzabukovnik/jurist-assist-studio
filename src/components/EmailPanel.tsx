@@ -133,7 +133,7 @@ export function EmailPanel() {
               <ul className="space-y-2">
                 {[
                   "Če vam ustreza, lahko v naslednjih dneh organiziramo tudi kratek uvodni klic, na katerem bi lahko podrobneje obravnavali vašo situacijo. Ali vam bi ustrezalo [IZBERI DATUM IN URO]?",
-                  "Sestanek za pregled pogodbe — predlog: 14. 3. 2026",
+                  "Posredujte odgovore na zgornja vprašanja.",
                   "Priprava pogajalske strategije",
                 ].map((step, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm">
