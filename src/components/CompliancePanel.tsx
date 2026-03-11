@@ -166,8 +166,6 @@ export function CompliancePanel() {
           </Card>
         </div>
 
-        {/* Deadlines */}
-        )}
 
         {/* Suggested lawyers */}
         {data.odvetniki.length > 0 && (
